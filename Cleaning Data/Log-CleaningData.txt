@@ -1,0 +1,155 @@
+----------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  \\Client\C$\Users\maris\Dropbox\Grad\582 - Metrics I\ECON-582---Krueger-Replication\Cleaning Data/L
+> og-CleaningData.txt
+  log type:  text
+ opened on:   5 Nov 2019, 10:59:22
+
+. 
+. use "./Raw Data/STAR_Students.dta"
+
+. 
+. * This do file cleans the data *
+. *sum 
+. 
+. * Create variables to tell when a student entered STAR, and combine into one variable 
+. gen gradeenter = 0 if flagsgk == 1
+(5,276 missing values generated)
+
+. replace gradeenter = 1 if flagsgk == 0 & flagsg1 == 1
+(2,314 real changes made)
+
+. replace gradeenter = 2 if flagsgk == 0 & flagsg1 == 0 & flagsg2 == 1 
+(1,679 real changes made)
+
+. replace gradeenter = 3 if flagsgk == 0 & flagsg1 == 0 & flagsg2 == 0 & flagsg3 == 1 
+(1,283 real changes made)
+
+. 
+. tab gradeenter
+
+ gradeenter |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |      6,325       54.52       54.52
+          1 |      2,314       19.95       74.47
+          2 |      1,679       14.47       88.94
+          3 |      1,283       11.06      100.00
+------------+-----------------------------------
+      Total |     11,601      100.00
+
+. 
+end of do-file
+
+. do "C:\Users\mreuther\AppData\Local\Temp\8\STD1a84_000000.tmp"
+
+. tab gkfreelunch, m
+
+  FREE/REDUCED |
+  LUNCH STATUS |
+  KINDERGARTEN |      Freq.     Percent        Cum.
+---------------+-----------------------------------
+    FREE LUNCH |      3,052       26.31       26.31
+NON-FREE LUNCH |      3,248       28.00       54.31
+             . |      5,301       45.69      100.00
+---------------+-----------------------------------
+         Total |     11,601      100.00
+
+. preserve
+
+. drop if gkfreelunch == .
+(5,301 observations deleted)
+
+. gen gkfrlnch=gkfreelunch==1  /* need to make sure missing values are dropped otherwise get absorbed into the '
+> 0' */
+
+. tab gkfrlnch, m
+
+   gkfrlnch |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |      3,248       51.56       51.56
+          1 |      3,052       48.44      100.00
+------------+-----------------------------------
+      Total |      6,300      100.00
+
+. 
+. bysort  gkclasstype : egen mgkfreelunch = mean(gkfrlnch)
+
+. tab mgkfreelunch, m 
+
+mgkfreelunc |
+          h |      Freq.     Percent        Cum.
+------------+-----------------------------------
+   .4709302 |      1,892       30.03       30.03
+   .4773663 |      2,187       34.71       64.75
+   .5029266 |      2,221       35.25      100.00
+------------+-----------------------------------
+      Total |      6,300      100.00
+
+. restore
+
+. 
+end of do-file
+
+. do "C:\Users\mreuther\AppData\Local\Temp\8\STD1a84_000000.tmp"
+
+. tab g1freelunch, m
+
+  FREE/REDUCED |
+  LUNCH STATUS |
+       GRADE 1 |      Freq.     Percent        Cum.
+---------------+-----------------------------------
+    FREE LUNCH |      3,429       29.56       29.56
+NON-FREE LUNCH |      3,221       27.76       57.32
+             . |      4,951       42.68      100.00
+---------------+-----------------------------------
+         Total |     11,601      100.00
+
+. preserve
+
+. drop if g1freelunch == .
+(4,951 observations deleted)
+
+. gen g1frlnch=g1freelunch==1  /* need to make sure missing values are dropped otherwise get absorbed into the '
+> 0' */
+
+. tab g1frlnch, m
+
+   g1frlnch |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |      3,221       48.44       48.44
+          1 |      3,429       51.56      100.00
+------------+-----------------------------------
+      Total |      6,650      100.00
+
+. 
+. bysort g1classtype : egen mg1freelunch = mean(g1frlnch)
+
+. tab g1classtype, m
+
+CLASSROOM TYPE GRADE |
+                   1 |      Freq.     Percent        Cum.
+---------------------+-----------------------------------
+         SMALL CLASS |      1,888       28.39       28.39
+       REGULAR CLASS |      2,532       38.08       66.47
+REGULAR + AIDE CLASS |      2,230       33.53      100.00
+---------------------+-----------------------------------
+               Total |      6,650      100.00
+
+. tab mg1freelunch, m 
+
+mg1freelunc |
+          h |      Freq.     Percent        Cum.
+------------+-----------------------------------
+   .4878178 |      1,888       28.39       28.39
+   .5233184 |      2,230       33.53       61.92
+   .5296208 |      2,532       38.08      100.00
+------------+-----------------------------------
+      Total |      6,650      100.00
+
+. restore
+
+. 
+. 
+end of do-file
+
+. exit, clear
