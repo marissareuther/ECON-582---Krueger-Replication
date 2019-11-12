@@ -732,3 +732,48 @@ CLASS SIZE |      CLASSROOM TYPE GRADE 1
 . 
 end of do-file
 
+. do "\\Client\C$\Users\maris\Dropbox\Grad\582 - Metrics I\Problem Sets\5\Chodorow Materials\20100254_data\Chodorow_Questi
+> on3_Replication.do"
+
+. /******************************************************************************************************
+> Author: Marissa Reuther 
+> Date: November 22nd, 2019
+> Economics 582 - Elements of Econometrics I
+> 
+> This code is the partial replication and extension of Chodorow-Reich et al. (2012, American
+> Economic Journal: Economic Policy).
+> *******************************************************************************************************
+> MainTables
+> Layout of code is:
+> 1. Declare locals for period over which we are estimating employment change
+> 2. Build dataset
+> 3. Scale/Adjust Variables
+> 4. Analysis: Production of Tables
+>         a. Table 1
+>         b. Table 2
+>         c. Table 3 and 4 
+>                 Includes extension using ivreg2 and weakivtest
+>         d. Extension using IPUMS data
+> *******************************************************************************************************/
+. 
+. version 10.1
+
+. clear
+
+. set more off
+
+. cd "\\Client\C$\Users\maris\Dropbox\Grad\582 - Metrics I\Problem Sets\5\Chodorow Materials\20100254_data"
+\\Client\C$\Users\maris\Dropbox\Grad\582 - Metrics I\Problem Sets\5\Chodorow Materials\20100254_data
+
+. set mem 300m
+
+. set matsize 800
+
+. capture estimates drop *
+
+. /*ssc install ivreg2, replace
+> ssc install estout, replace
+> ssc install avar, replace
+> ssc install weakivtest, replace
+> ssc install statastates, replace*/
+. capture log close
