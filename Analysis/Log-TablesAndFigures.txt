@@ -1,9 +1,9 @@
-----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  \\Client\C$\Users\maris\Dropbox\Grad\582 - Metrics I\ECON-582---Krueg
-> er-Replication\Analysis/Log-TablesAndFigures.txt
+       log:  \\Client\C$\Users\maris\Dropbox\Grad\582 - Metrics I\ECON-582---Krueger-Replication\Analysis/Log-
+> TablesAndFigures.txt
   log type:  text
- opened on:  12 Nov 2019, 09:11:22
+ opened on:  18 Nov 2019, 15:12:05
 
 . 
 . use "./Raw Data/STAR_Students.dta"
@@ -20,29 +20,33 @@
 . replace gradeenter = 2 if flagsgk == 0 & flagsg1 == 0 & flagsg2 == 1 
 (1,679 real changes made)
 
-. replace gradeenter = 3 if flagsgk == 0 & flagsg1 == 0 & flagsg2 == 0 & flagsg3 =
-> = 1 
+. replace gradeenter = 3 if flagsgk == 0 & flagsg1 == 0 & flagsg2 == 0 & flagsg3 == 1 
 (1,283 real changes made)
 
 . 
+. 
 . * Drop if race is missing and create White/Asian indicator
-. *drop if race == .
+. drop if race == .
+(134 observations deleted)
+
 . gen WhiteAsian = 1 if race == 1 | race == 3
-(4,369 missing values generated)
+(4,235 missing values generated)
 
-. replace WhiteAsian = 0 if WhiteAsian == .
-(4,369 real changes made)
+. replace WhiteAsian = 0 if WhiteAsian == . & race != .
+(4,235 real changes made)
 
+. 
 . 
 . * Create variable: Age as of September 1st, 1985 (start of 1985 school year)
 . gen bday = mdy(birthmonth, birthday, birthyear)
-(71 missing values generated)
+(37 missing values generated)
 
 . gen startschool = mdy(9,1,1985)
 
 . gen age = (startschool - bday)/365
-(71 missing values generated)
+(37 missing values generated)
 
+. 
 . 
 . * Redefine free lunch as (0 1) instead of (1 2)
 . local freelunch = "gkfreelunch g1freelunch g2freelunch g3freelunch"
@@ -53,46 +57,49 @@
   3.  replace `var'_2 = 0 if `var' == 2
   4.  replace `var'_2 = 1 if `var' == 1
   5. }
-(11,601 missing values generated)
+(11,467 missing values generated)
 (3,248 real changes made)
-(3,052 real changes made)
-(11,601 missing values generated)
+(3,051 real changes made)
+(11,467 missing values generated)
+(3,214 real changes made)
+(3,408 real changes made)
+(11,467 missing values generated)
+(3,140 real changes made)
+(3,278 real changes made)
+(11,467 missing values generated)
 (3,221 real changes made)
-(3,429 real changes made)
-(11,601 missing values generated)
-(3,160 real changes made)
-(3,336 real changes made)
-(11,601 missing values generated)
-(3,227 real changes made)
-(3,293 real changes made)
+(3,285 real changes made)
 
 . 
-. * Create variable: Attrition rate: percent that exits sample before completing t
-> hird grade 
+. 
+. * Redefine gender as (0 -male,1 -female) instead of (1,2) 
+. gen girl = gender - 1
+
+. 
+. 
+. * Create variable: Attrition rate: percent that exits sample before completing third grade 
 . * Kindergarten:
-. gen g0attrition = 1 if flagsgk == 1 & flagsg1 == 0 | flagsg2 == 0 | flagsg3 == 0
->  
-(5,339 missing values generated)
+. gen g0attrition = 1 if flagsgk == 1 & flagsg1 == 0 | flagsg2 == 0 | flagsg3 == 0 
+(5,338 missing values generated)
 
 . replace g0attrition = 0 if g0attrition == .
-(5,339 real changes made)
+(5,338 real changes made)
 
 . 
 . * 1st Grade:
-. gen g1attrition = 1 if flagsg1 == 1 & flagsgk == 0 & flagsg2 == 0 | flagsg3 == 0
->  
-(6,770 missing values generated)
+. gen g1attrition = 1 if flagsg1 == 1 & flagsgk == 0 & flagsg2 == 0 | flagsg3 == 0 
+(6,756 missing values generated)
 
 . replace g1attrition = 0 if g1attrition == .
-(6,770 real changes made)
+(6,756 real changes made)
 
 . 
 . * 2nd Grade:
 . gen g2attrition = 1 if flagsg2 == 1 & flagsg3 == 0 
-(10,174 missing values generated)
+(10,128 missing values generated)
 
 . replace g2attrition = 0 if g2attrition == .
-(10,174 real changes made)
+(10,128 real changes made)
 
 . 
 . * 3rd Grade: Attrition not available
@@ -100,680 +107,68 @@
 
 . 
 . 
-. * Create variable: Percentile Score as average of three SAT percentiles 
-. ************* Need to fix this!!!!! All other variables are pretty good. 
-. local g0score = "gktmathss gktlistss gkwordskillss"
-
-. local g1score = "g1tmathss g1tlistss g1wordskillss"
-
-. local g2score = "g2tmathss g2tlistss g2wordskillss"
-
-. local g3score = "g3tmathss g3tlistss g3wordskillss"
+. * Create indicator for white teacher in each grade
+. rename gktrace g0trace
 
 . 
-. foreach var of local g0score { 
-  2.      egen n_`var' = count(`var')
-  3.      sort `var'
-  4.      egen i_`var' = rank(`var')
-  5.      gen p_`var' = ((i_`var' - 0.5) / n_`var')*100 
-  6. } 
-(5730 missing values generated)
-(5,730 missing values generated)
-(5764 missing values generated)
-(5,764 missing values generated)
-(5750 missing values generated)
-(5,750 missing values generated)
-
-. gen g0pscore = (p_gktmathss + p_gktlistss + p_gkwordskillss)/3
-(5,815 missing values generated)
-
-. 
-. foreach var of local g1score { 
-  2.   egen n_`var' = count(`var')
-  3.   sort `var'
-  4.   egen i_`var' = rank(`var')
-  5.   gen p_`var' = ((i_`var' - 0.5) / n_`var')*100 
-  6.  }
-(5003 missing values generated)
-(5,003 missing values generated)
-(5045 missing values generated)
-(5,045 missing values generated)
-(5629 missing values generated)
-(5,629 missing values generated)
-
-. gen g1pscore = (p_g1tmathss + p_g1tlistss + p_g1wordskillss)/3
-(5,715 missing values generated)
-
-. 
-. foreach var of local g2score { 
-  2.   egen n_`var' = count(`var')
-  3.   sort `var'
-  4.   egen i_`var' = rank(`var')
-  5.   gen p_`var' = ((i_`var' - 0.5) / n_`var')*100 
-  6.  }
-(5536 missing values generated)
-(5,536 missing values generated)
-(5558 missing values generated)
-(5,558 missing values generated)
-(5254 missing values generated)
-(5,254 missing values generated)
-
-. gen g2pscore = (p_g2tmathss + p_g2tlistss + p_g2wordskillss)/3
-(5,587 missing values generated)
-
-. 
-. foreach var of local g3score { 
-  2.   egen n_`var' = count(`var')
-  3.   sort `var'
-  4.   egen i_`var' = rank(`var')
-  5.   gen p_`var' = ((i_`var' - 0.5) / n_`var')*100 
-  6.  }
-(5524 missing values generated)
-(5,524 missing values generated)
-(5527 missing values generated)
-(5,527 missing values generated)
-(5252 missing values generated)
-(5,252 missing values generated)
-
-. gen g3pscore = (p_g3tmathss + p_g3tlistss + p_g3wordskillss)/3
-(5,574 missing values generated)
-
-. 
-. 
-. 
-. ******************************************************
-. * Table 1 , use column(s) option within tabstat
-. * or can just use table and ,c() option (mean freelunch)
-. 
-. rename gkclasstype g0classtype
-
-. rename gkfreelunch_2 g0freelunch_2
-
-. rename gkclasssize g0classsize
-
-. 
-. local g0list = "g0freelunch_2 WhiteAsian age g0attrition g0classsize g0pscore"
-
-. local g1list = "g1freelunch_2 WhiteAsian age g1attrition g1classsize g1pscore"
-
-. local g2list = "g2freelunch_2 WhiteAsian age g2attrition g2classsize g2pscore"
-
-. local g3list = "g3freelunch_2 WhiteAsian age g3classsize g3pscore"
-
-. 
-. foreach i in 0 1 2 3 {
-  2.    tabstat g`i'freelunch_2 WhiteAsian age g`i'attrition g`i'classsize g`i'psc
-> ore if gradeenter == `i', by(g`i'classtype) stat(mean)
-  3.      
-.          foreach var of local g`i'list { 
-  4.        mvtest mean `var' if gradeenter == `i', by(g`i'classtype) 
-  5.            mvtest mean `var' if gradeenter == `i', by(g`i'classtype) het
-  6.      }
-  7. }
-
-Summary statistics: mean
-  by categories of: g0classtype (CLASSROOM TYPE KINDERGARTEN)
-
-     g0classtype |  g0free~2  WhiteA~n       age  g0attr~n  g0cla~ze  g0pscore
------------------+------------------------------------------------------------
-     SMALL CLASS |  .4709302  .6826316  5.442391  .4873684  15.11684  52.96183
-   REGULAR CLASS |  .4773663   .674567  5.426029  .5177758  22.38286  49.18623
-REGULAR + AIDE C |  .5029266  .6593456  5.431735  .5289108  22.77409  48.55269
------------------+------------------------------------------------------------
-           Total |  .4844444  .6716206  5.432955  .5125692  20.33818  50.09839
-------------------------------------------------------------------------------
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9992     2.0    6297.0      2.43   0.0881 e
-             Pillai's trace |    0.0008     2.0    6297.0      2.43   0.0881 e
-     Lawley-Hotelling trace |    0.0008     2.0    6297.0      2.43   0.0881 e
-         Roy's largest root |    0.0008     2.0    6297.0      2.43   0.0881 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =      4.86
-           Prob > chi2 =    0.0881  (chi-squared approximation)
-           Prob > chi2 =    0.0883  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9996     2.0    6322.0      1.33   0.2652 e
-             Pillai's trace |    0.0004     2.0    6322.0      1.33   0.2652 e
-     Lawley-Hotelling trace |    0.0004     2.0    6322.0      1.33   0.2652 e
-         Roy's largest root |    0.0004     2.0    6322.0      1.33   0.2652 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =      2.64
-           Prob > chi2 =    0.2665  (chi-squared approximation)
-           Prob > chi2 =    0.2667  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9996     2.0    6312.0      1.13   0.3220 e
-             Pillai's trace |    0.0004     2.0    6312.0      1.13   0.3220 e
-     Lawley-Hotelling trace |    0.0004     2.0    6312.0      1.13   0.3220 e
-         Roy's largest root |    0.0004     2.0    6312.0      1.13   0.3220 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =      2.27
-           Prob > chi2 =    0.3211  (chi-squared approximation)
-           Prob > chi2 =    0.3213  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9988     2.0    6322.0      3.73   0.0241 e
-             Pillai's trace |    0.0012     2.0    6322.0      3.73   0.0241 e
-     Lawley-Hotelling trace |    0.0012     2.0    6322.0      3.73   0.0241 e
-         Roy's largest root |    0.0012     2.0    6322.0      3.73   0.0241 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =      7.46
-           Prob > chi2 =    0.0240  (chi-squared approximation)
-           Prob > chi2 =    0.0241  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.2594     2.0    6322.0   9023.29   0.0000 e
-             Pillai's trace |    0.7406     2.0    6322.0   9023.29   0.0000 e
-     Lawley-Hotelling trace |    2.8546     2.0    6322.0   9023.29   0.0000 e
-         Roy's largest root |    2.8546     2.0    6322.0   9023.29   0.0000 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =  24305.62
-           Prob > chi2 =    0.0000  (chi-squared approximation)
-           Prob > chi2 =    0.0000  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9942     2.0    5783.0     16.75   0.0000 e
-             Pillai's trace |    0.0058     2.0    5783.0     16.75   0.0000 e
-     Lawley-Hotelling trace |    0.0058     2.0    5783.0     16.75   0.0000 e
-         Roy's largest root |    0.0058     2.0    5783.0     16.75   0.0000 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =     33.07
-           Prob > chi2 =    0.0000  (chi-squared approximation)
-           Prob > chi2 =    0.0000  (James' approximation)
-
-Summary statistics: mean
-  by categories of: g1classtype (CLASSROOM TYPE GRADE 1)
-
-     g1classtype |  g1free~2  WhiteA~n       age  g1attr~n  g1cla~ze  g1pscore
------------------+------------------------------------------------------------
-     SMALL CLASS |  .5924933  .6155844  5.778198  .5272727  15.87013  47.77614
-   REGULAR CLASS |  .6241206  .5555556   5.85767  .5126706  22.70955  42.14699
-REGULAR + AIDE C |  .6066514   .641196   5.87593  .4684385  23.45736  46.36187
------------------+------------------------------------------------------------
-           Total |  .6120536  .5989628  5.851547  .4978392  21.86344  44.70532
-------------------------------------------------------------------------------
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9994     2.0    2237.0      0.66   0.5176 e
-             Pillai's trace |    0.0006     2.0    2237.0      0.66   0.5176 e
-     Lawley-Hotelling trace |    0.0006     2.0    2237.0      0.66   0.5176 e
-         Roy's largest root |    0.0006     2.0    2237.0      0.66   0.5176 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =      1.31
-           Prob > chi2 =    0.5187  (chi-squared approximation)
-           Prob > chi2 =    0.5191  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9934     2.0    2311.0      7.64   0.0005 e
-             Pillai's trace |    0.0066     2.0    2311.0      7.64   0.0005 e
-     Lawley-Hotelling trace |    0.0066     2.0    2311.0      7.64   0.0005 e
-         Roy's largest root |    0.0066     2.0    2311.0      7.64   0.0005 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =     15.25
-           Prob > chi2 =    0.0005  (chi-squared approximation)
-           Prob > chi2 =    0.0005  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9970     2.0    2274.0      3.43   0.0326 e
-             Pillai's trace |    0.0030     2.0    2274.0      3.43   0.0326 e
-     Lawley-Hotelling trace |    0.0030     2.0    2274.0      3.43   0.0326 e
-         Roy's largest root |    0.0030     2.0    2274.0      3.43   0.0326 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =      7.23
-           Prob > chi2 =    0.0269  (chi-squared approximation)
-           Prob > chi2 =    0.0273  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9977     2.0    2311.0      2.68   0.0686 e
-             Pillai's trace |    0.0023     2.0    2311.0      2.68   0.0686 e
-     Lawley-Hotelling trace |    0.0023     2.0    2311.0      2.68   0.0686 e
-         Roy's largest root |    0.0023     2.0    2311.0      2.68   0.0686 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =      5.37
-           Prob > chi2 =    0.0683  (chi-squared approximation)
-           Prob > chi2 =    0.0689  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.4303     2.0    2311.0   1529.57   0.0000 e
-             Pillai's trace |    0.5697     2.0    2311.0   1529.57   0.0000 e
-     Lawley-Hotelling trace |    1.3237     2.0    2311.0   1529.57   0.0000 e
-         Roy's largest root |    1.3237     2.0    2311.0   1529.57   0.0000 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =   5153.33
-           Prob > chi2 =    0.0000  (chi-squared approximation)
-           Prob > chi2 =    0.0000  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9905     2.0    2134.0     10.24   0.0000 e
-             Pillai's trace |    0.0095     2.0    2134.0     10.24   0.0000 e
-     Lawley-Hotelling trace |    0.0096     2.0    2134.0     10.24   0.0000 e
-         Roy's largest root |    0.0096     2.0    2134.0     10.24   0.0000 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =     20.59
-           Prob > chi2 =    0.0000  (chi-squared approximation)
-           Prob > chi2 =    0.0000  (James' approximation)
-
-Summary statistics: mean
-  by categories of: g2classtype (CLASSROOM TYPE GRADE 2)
-
-     g2classtype |  g2free~2  WhiteA~n       age  g2attr~n  g2cla~ze  g2pscore
------------------+------------------------------------------------------------
-     SMALL CLASS |  .6554622  .5327869  5.881076  .3688525      15.5  46.35204
-   REGULAR CLASS |  .6332795  .5412844  5.908413  .3363914  23.71407  44.49348
-REGULAR + AIDE C |  .6590909  .4415781  5.940833  .3490137  23.59181   41.7237
------------------+------------------------------------------------------------
-           Total |  .6482412  .5002978  5.915149  .3484217  21.87552  43.75505
-------------------------------------------------------------------------------
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9994     2.0    1589.0      0.50   0.6048 e
-             Pillai's trace |    0.0006     2.0    1589.0      0.50   0.6048 e
-     Lawley-Hotelling trace |    0.0006     2.0    1589.0      0.50   0.6048 e
-         Roy's largest root |    0.0006     2.0    1589.0      0.50   0.6048 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =      1.00
-           Prob > chi2 =    0.6066  (chi-squared approximation)
-           Prob > chi2 =    0.6070  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9910     2.0    1676.0      7.57   0.0005 e
-             Pillai's trace |    0.0090     2.0    1676.0      7.57   0.0005 e
-     Lawley-Hotelling trace |    0.0090     2.0    1676.0      7.57   0.0005 e
-         Roy's largest root |    0.0090     2.0    1676.0      7.57   0.0005 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =     15.17
-           Prob > chi2 =    0.0005  (chi-squared approximation)
-           Prob > chi2 =    0.0005  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9989     2.0    1669.0      0.95   0.3852 e
-             Pillai's trace |    0.0011     2.0    1669.0      0.95   0.3852 e
-     Lawley-Hotelling trace |    0.0011     2.0    1669.0      0.95   0.3852 e
-         Roy's largest root |    0.0011     2.0    1669.0      0.95   0.3852 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =      1.95
-           Prob > chi2 =    0.3775  (chi-squared approximation)
-           Prob > chi2 =    0.3782  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9994     2.0    1676.0      0.54   0.5800 e
-             Pillai's trace |    0.0006     2.0    1676.0      0.54   0.5800 e
-     Lawley-Hotelling trace |    0.0007     2.0    1676.0      0.54   0.5800 e
-         Roy's largest root |    0.0007     2.0    1676.0      0.54   0.5800 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =      1.08
-           Prob > chi2 =    0.5832  (chi-squared approximation)
-           Prob > chi2 =    0.5836  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.2557     2.0    1676.0   2439.65   0.0000 e
-             Pillai's trace |    0.7443     2.0    1676.0   2439.65   0.0000 e
-     Lawley-Hotelling trace |    2.9113     2.0    1676.0   2439.65   0.0000 e
-         Roy's largest root |    2.9113     2.0    1676.0   2439.65   0.0000 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =   7356.69
-           Prob > chi2 =    0.0000  (chi-squared approximation)
-           Prob > chi2 =    0.0000  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9944     2.0    1242.0      3.52   0.0300 e
-             Pillai's trace |    0.0056     2.0    1242.0      3.52   0.0300 e
-     Lawley-Hotelling trace |    0.0057     2.0    1242.0      3.52   0.0300 e
-         Roy's largest root |    0.0057     2.0    1242.0      3.52   0.0300 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =      7.10
-           Prob > chi2 =    0.0287  (chi-squared approximation)
-           Prob > chi2 =    0.0293  (James' approximation)
-
-Summary statistics: mean
-  by categories of: g3classtype (CLASSROOM TYPE GRADE 3)
-
-     g3classtype |  g3free~2  WhiteA~n       age  g3attr~n  g3cla~ze  g3pscore
------------------+------------------------------------------------------------
-     SMALL CLASS |  .5983146  .6595174  5.951963         0  15.97051   46.7298
-   REGULAR CLASS |  .6445498  .5748899  5.929368         0  24.05066  44.43474
-REGULAR + AIDE C |  .6863208  .5504386   5.98565         0  24.42544  40.35557
------------------+------------------------------------------------------------
-           Total |  .6455907  .5908028  5.955853         0  21.83476  43.53824
-------------------------------------------------------------------------------
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9945     2.0    1199.0      3.29   0.0377 e
-             Pillai's trace |    0.0055     2.0    1199.0      3.29   0.0377 e
-     Lawley-Hotelling trace |    0.0055     2.0    1199.0      3.29   0.0377 e
-         Roy's largest root |    0.0055     2.0    1199.0      3.29   0.0377 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =      6.55
-           Prob > chi2 =    0.0378  (chi-squared approximation)
-           Prob > chi2 =    0.0384  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9916     2.0    1280.0      5.45   0.0044 e
-             Pillai's trace |    0.0084     2.0    1280.0      5.45   0.0044 e
-     Lawley-Hotelling trace |    0.0085     2.0    1280.0      5.45   0.0044 e
-         Roy's largest root |    0.0085     2.0    1280.0      5.45   0.0044 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =     11.27
-           Prob > chi2 =    0.0036  (chi-squared approximation)
-           Prob > chi2 =    0.0037  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9989     2.0    1263.0      0.70   0.4973 e
-             Pillai's trace |    0.0011     2.0    1263.0      0.70   0.4973 e
-     Lawley-Hotelling trace |    0.0011     2.0    1263.0      0.70   0.4973 e
-         Roy's largest root |    0.0011     2.0    1263.0      0.70   0.4973 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =      1.34
-           Prob > chi2 =    0.5121  (chi-squared approximation)
-           Prob > chi2 =    0.5126  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.2495     2.0    1280.0   1924.79   0.0000 e
-             Pillai's trace |    0.7505     2.0    1280.0   1924.79   0.0000 e
-     Lawley-Hotelling trace |    3.0075     2.0    1280.0   1924.79   0.0000 e
-         Roy's largest root |    3.0075     2.0    1280.0   1924.79   0.0000 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =   4817.02
-           Prob > chi2 =    0.0000  (chi-squared approximation)
-           Prob > chi2 =    0.0000  (James' approximation)
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9883     2.0    1001.0      5.93   0.0028 e
-             Pillai's trace |    0.0117     2.0    1001.0      5.93   0.0028 e
-     Lawley-Hotelling trace |    0.0118     2.0    1001.0      5.93   0.0028 e
-         Roy's largest root |    0.0118     2.0    1001.0      5.93   0.0028 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, allowing for heterogeneity
-
-          Wald chi2(2) =     11.64
-           Prob > chi2 =    0.0030  (chi-squared approximation)
-           Prob > chi2 =    0.0031  (James' approximation)
-
-. 
-. /* different format. (Not as nice) 
-> foreach i in 0 1 2 3 {
->   foreach var of local g`i'list { 
->      tabstat `var' if gradeenter == `i', by(g`i'classtype) stat(mean, n)
->      mvtest mean `var' if gradeenter == `i', by(g`i'classtype) het
->    }
-> }
-> */
-. 
-. 
-. 
-. 
-. ******************************************************
-. * Table 2
-. 
-. * check out  areg and/or reghdfe 
-. *school id variables --> gkschid, 
-. * Is this what it means by school controls?
-. 
-. 
-. 
-. 
-. ******************************************************
-. * Table 3
-. * Distribution of children across actual class sizes by random assignment group 
-> in first grade 
-. 
-. tab g1classsize g1classtype
-
-CLASS SIZE |      CLASSROOM TYPE GRADE 1
-   GRADE 1 | SMALL CLA  REGULAR C  REGULAR + |     Total
------------+---------------------------------+----------
-        12 |        24          0          0 |        24 
-        13 |       182          0          0 |       182 
-        14 |       252          0          0 |       252 
-        15 |       465          0          0 |       465 
-        16 |       256         16          0 |       272 
-        17 |       561         17          0 |       578 
-        18 |       108         36          0 |       144 
-        19 |        57         76         57 |       190 
-        20 |        20        200        120 |       340 
-        21 |         0        378        378 |       756 
-        22 |         0        594        330 |       924 
-        23 |         0        437        460 |       897 
-        24 |         0        384        264 |       648 
-        25 |         0        175        225 |       400 
-        26 |         0        130        234 |       364 
-        27 |         0         54        108 |       162 
-        28 |         0         28         56 |        84 
-        29 |         0         29         58 |        87 
-        30 |         0         30         30 |        60 
------------+---------------------------------+----------
-     Total |     1,925      2,584      2,320 |     6,829 
-
-. 
-. 
-. 
-. 
-. ******************************************************
-. * Figure 1 
-. * Distribution of Test Percentile Scores by Class Size and Grade 
-. 
-. forvalues n=0(1)3 {
-  2. twoway kdensity g`n'pscore if (g`n'classtype==1) || kdensity g`n'pscore if (g
-> `n'classtype==2 | g`n'classtype==3)
-  3. graph export "./Output/figure1_`n'.png", replace
+. forvalues i == 0/3 {
+  2.         gen g`i'twhite = 1 if g`i'trace == 1
+  3.         replace g`i'twhite = 0 if g`i'twhite==. & g`i'trace != .
   4. }
-(note: file ./Output/figure1_0.png not found)
-(file ./Output/figure1_0.png written in PNG format)
-(note: file ./Output/figure1_1.png not found)
-(file ./Output/figure1_1.png written in PNG format)
-(note: file ./Output/figure1_2.png not found)
-(file ./Output/figure1_2.png written in PNG format)
-(note: file ./Output/figure1_3.png not found)
-(file ./Output/figure1_3.png written in PNG format)
+(6,223 missing values generated)
+(1,035 real changes made)
+(5,866 missing values generated)
+(1,182 real changes made)
+(6,140 missing values generated)
+(1,365 real changes made)
+(6,151 missing values generated)
+(1,421 real changes made)
 
 . 
-.  
+. * Create indicator for teacher with master's degree or higher in each grade
+. rename gkthighdegree g0thighdegree
+
+. 
+. forvalues i == 0/3 {
+  2.         gen g`i'md = 1 if g`i'thighdegree == 3 | g`i'thighdegree == 4 | g`i'thighdegree == 5 | g`i'thighd
+> egree == 6
+  3.         replace g`i'md = 0 if g`i'md==. & g`i'thighdegree != .
+  4. }
+(9,282 missing values generated)
+(4,116 real changes made)
+(9,124 missing values generated)
+(4,440 real changes made)
+(8,970 missing values generated)
+(4,195 real changes made)
+(8,502 missing values generated)
+(3,757 real changes made)
+
+. 
+. tab g1md, m
+
+       g1md |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |      4,440       38.72       38.72
+          1 |      2,343       20.43       59.15
+          . |      4,684       40.85      100.00
+------------+-----------------------------------
+      Total |     11,467      100.00
+
+.  tab g1thighdegree,m
+
+    TEACHER |
+    HIGHEST |
+     DEGREE |
+    GRADE 1 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+  bachelors |      4,440       38.72       38.72
+    masters |      2,283       19.91       58.63
+ specialist |         38        0.33       58.96
+   doctoral |         22        0.19       59.15
+          . |      4,684       40.85      100.00
+------------+-----------------------------------
+      Total |     11,467      100.00
+
 . 
 end of do-file
 
-. do "\\Client\C$\Users\maris\Dropbox\Grad\582 - Metrics I\Problem Sets\5\Chodorow Materials\20100254_data\Chodorow_Questi
-> on3_Replication.do"
-
-. /******************************************************************************************************
-> Author: Marissa Reuther 
-> Date: November 22nd, 2019
-> Economics 582 - Elements of Econometrics I
-> 
-> This code is the partial replication and extension of Chodorow-Reich et al. (2012, American
-> Economic Journal: Economic Policy).
-> *******************************************************************************************************
-> MainTables
-> Layout of code is:
-> 1. Declare locals for period over which we are estimating employment change
-> 2. Build dataset
-> 3. Scale/Adjust Variables
-> 4. Analysis: Production of Tables
->         a. Table 1
->         b. Table 2
->         c. Table 3 and 4 
->                 Includes extension using ivreg2 and weakivtest
->         d. Extension using IPUMS data
-> *******************************************************************************************************/
-. 
-. version 10.1
-
-. clear
-
-. set more off
-
-. cd "\\Client\C$\Users\maris\Dropbox\Grad\582 - Metrics I\Problem Sets\5\Chodorow Materials\20100254_data"
-\\Client\C$\Users\maris\Dropbox\Grad\582 - Metrics I\Problem Sets\5\Chodorow Materials\20100254_data
-
-. set mem 300m
-
-. set matsize 800
-
-. capture estimates drop *
-
-. /*ssc install ivreg2, replace
-> ssc install estout, replace
-> ssc install avar, replace
-> ssc install weakivtest, replace
-> ssc install statastates, replace*/
-. capture log close
