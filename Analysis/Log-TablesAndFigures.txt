@@ -1,9 +1,9 @@
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  \\Client\C$\Users\maris\Dropbox\Grad\582 - Metrics I\ECON-582---Krueger-Replicati
-> on\Analysis/Log-TablesAndFigures.txt
+       log:  \\Client\C$\Users\maris\Dropbox\Grad\582 - Metrics I\ECON-582---K
+> rueger-Replication\Analysis/Log-TablesAndFigures.txt
   log type:  text
- opened on:  20 Nov 2019, 19:35:57
+ opened on:  21 Nov 2019, 09:19:21
 
 . 
 . use "./Raw Data/STAR_Students.dta"
@@ -45,7 +45,8 @@
 . replace gradeenter = 2 if flagsgk == 0 & flagsg1 == 0 & flagsg2 == 1 
 (1,679 real changes made)
 
-. replace gradeenter = 3 if flagsgk == 0 & flagsg1 == 0 & flagsg2 == 0 & flagsg3 == 1 
+. replace gradeenter = 3 if flagsgk == 0 & flagsg1 == 0 & flagsg2 == 0 & flags
+> g3 == 1 
 (1,283 real changes made)
 
 . 
@@ -102,9 +103,11 @@
 
 . 
 . 
-. * Create variable: Attrition rate: percent that exits sample before completing third grade 
+. * Create variable: Attrition rate: percent that exits sample before completi
+> ng third grade 
 . * Kindergarten:
-. gen g0attrition = 1 if flagsgk == 1 & flagsg1 == 0 | flagsg2 == 0 | flagsg3 == 0 
+. gen g0attrition = 1 if flagsgk == 1 & flagsg1 == 0 | flagsg2 == 0 | flagsg3 
+> == 0 
 (5,339 missing values generated)
 
 . replace g0attrition = 0 if g0attrition == .
@@ -147,8 +150,8 @@
 . 
 . * Create indicator for teacher with master's degree or higher in each grade
 . forvalues i == 0/3 {
-  2.         gen g`i'md = 1 if g`i'thighdegree == 3 | g`i'thighdegree == 4 | g`i'thighdegree =
-> = 5 | g`i'thighdegree == 6
+  2.         gen g`i'md = 1 if g`i'thighdegree == 3 | g`i'thighdegree == 4 | g
+> `i'thighdegree == 5 | g`i'thighdegree == 6
   3.         replace g`i'md = 0 if g`i'md==. & g`i'thighdegree != .
   4. }
 (9,416 missing values generated)
@@ -165,7 +168,8 @@
 . * Create White Teacher indicator
 . forvalues i == 0/3 {
   2.         gen WhiteTeacher`i' = 1 if g`i'trace == 1
-  3.         replace WhiteTeacher`i' = 0 if WhiteTeacher`i' == . & g`i'trace != .
+  3.         replace WhiteTeacher`i' = 0 if WhiteTeacher`i' == . & g`i'trace !
+> = .
   4. }
 (6,355 missing values generated)
 (1,036 real changes made)
@@ -194,7 +198,8 @@
 
 . 
 . 
-. * Create dummy for small class, regular class, and regular+aide (need for II V and VII)
+. * Create dummy for small class, regular class, and regular+aide (need for II
+>  V and VII)
 . forvalues i == 0/3{
   2.         gen g`i's = 1 if g`i'classtype==1
   3.         replace g`i's = 0 if g`i's == . & g`i'classtype != .
@@ -233,14 +238,16 @@
 . 
 . 
 . 
-. * Create variable: Percentile Score as SAT average for reading, math, and listening
+. * Create variable: Percentile Score as SAT average for reading, math, and li
+> stening
 . forvalues i == 0/3 {
   2. 
 .         foreach sub in `i'tread `i'tmath `i'wordskill {
-  3.                 cumul g`sub'ss if inrange(g`i'classtype,2,3), gen(g`sub'xt)
+  3.                 cumul g`sub'ss if inrange(g`i'classtype,2,3), gen(g`sub'x
+> t)
   4.                 sort g`sub'ss
-  5.                 replace g`sub'xt=g`sub'xt[_n-1] if g`sub'ss==g`sub'ss[_n-1] & g`i'classty
-> pe==1
+  5.                 replace g`sub'xt=g`sub'xt[_n-1] if g`sub'ss==g`sub'ss[_n-
+> 1] & g`i'classtype==1
   6.                 ipolate g`sub'xt g`sub'ss, gen(ipo)
   7.                 replace g`sub'xt=ipo if g`i'classtype==1 & mi(g`sub'xt)
   8.                 drop ipo
@@ -248,1327 +255,758 @@
  10.         egen g`i'SAT = rmean(g`i'treadxt g`i'tmathxt g`i'wordskillxt)
  11.         replace g`i'SAT=100*g`i'SAT
  12. }
-(1,696 real changes made)
+(1,697 real changes made)
 (5812 missing values generated)
-(43 real changes made)
-(1,746 real changes made)
+(42 real changes made)
+(1,744 real changes made)
 (5731 missing values generated)
-(15 real changes made)
-(1,737 real changes made)
+(17 real changes made)
+(1,744 real changes made)
 (5750 missing values generated)
-(18 real changes made)
+(11 real changes made)
 (5700 missing values generated)
 (5,901 real changes made)
-(1,798 real changes made)
+(1,791 real changes made)
 (5206 missing values generated)
-(25 real changes made)
-(1,850 real changes made)
+(32 real changes made)
+(1,849 real changes made)
 (5003 missing values generated)
-(17 real changes made)
-(1,661 real changes made)
+(18 real changes made)
+(1,660 real changes made)
 (5629 missing values generated)
-(7 real changes made)
+(8 real changes made)
 (4966 missing values generated)
 (6,635 real changes made)
-(1,752 real changes made)
+(1,767 real changes made)
 (5524 missing values generated)
-(42 real changes made)
-(1,758 real changes made)
+(27 real changes made)
+(1,762 real changes made)
 (5536 missing values generated)
-(31 real changes made)
-(1,860 real changes made)
+(27 real changes made)
+(1,868 real changes made)
 (5254 missing values generated)
-(16 real changes made)
+(8 real changes made)
 (5241 missing values generated)
 (6,360 real changes made)
-(1,877 real changes made)
+(1,870 real changes made)
 (5601 missing values generated)
-(38 real changes made)
-(1,909 real changes made)
+(45 real changes made)
+(1,896 real changes made)
 (5526 missing values generated)
-(27 real changes made)
-(2,042 real changes made)
+(40 real changes made)
+(2,045 real changes made)
 (5252 missing values generated)
-(23 real changes made)
+(20 real changes made)
 (5246 missing values generated)
 (6,355 real changes made)
 
 . 
 . 
-. 
-. 
-. 
-. 
-. *****************************************************
-. * Table 1 , use column(s) option within tabstat 
-. * or can just use table and ,c() option (mean freelunch)
-. * Can combine all results into one table using a matrix, or just leave it. 
-. 
-. local g0list = "g0freelunch_2 WhiteAsian age g0attrition g0classsize g0SAT"
+end of do-file
 
-. local g1list = "g1freelunch_2 WhiteAsian age g1attrition g1classsize g1SAT "
+. do "C:\Users\mreuther\AppData\Local\Temp\12\STD23a4_000000.tmp"
 
-. local g2list = "g2freelunch_2 WhiteAsian age g2attrition g2classsize g2SAT "
-
-. local g3list = "g3freelunch_2 WhiteAsian age g3classsize g3SAT "
-
-. 
-. foreach i in 0 1 2 3 {
-  2.    tabstat g`i'freelunch_2 WhiteAsian age g`i'attrition g`i'classsize g`i'SAT if gradeent
-> er == `i', by(g`i'classtype) stat(mean)
-  3.      
-.          foreach var of local g`i'list { 
-  4.        mvtest mean `var' if gradeenter == `i', by(g`i'classtype) 
-  5.          }
-  6. }
-
-Summary statistics: mean
-  by categories of: g0classtype (CLASSROOM TYPE KINDERGARTEN)
-
-     g0classtype |  g0free~2  WhiteA~n       age  g0attr~n  g0cla~ze     g0SAT
------------------+------------------------------------------------------------
-     SMALL CLASS |  .4709302   .682991  5.442391  .4873684  15.11684  54.74374
-   REGULAR CLASS |  .4773663  .6751825  5.426029  .5177758  22.38286  49.93662
-REGULAR + AIDE C |  .5029266  .6593456  5.431735  .5289108  22.77409   50.0002
------------------+------------------------------------------------------------
-           Total |  .4844444  .6719393  5.432955  .5125692  20.33818  51.40183
-------------------------------------------------------------------------------
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9992     2.0    6297.0      2.43   0.0881 e
-             Pillai's trace |    0.0008     2.0    6297.0      2.43   0.0881 e
-     Lawley-Hotelling trace |    0.0008     2.0    6297.0      2.43   0.0881 e
-         Roy's largest root |    0.0008     2.0    6297.0      2.43   0.0881 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9996     2.0    6319.0      1.38   0.2514 e
-             Pillai's trace |    0.0004     2.0    6319.0      1.38   0.2514 e
-     Lawley-Hotelling trace |    0.0004     2.0    6319.0      1.38   0.2514 e
-         Roy's largest root |    0.0004     2.0    6319.0      1.38   0.2514 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9996     2.0    6312.0      1.13   0.3220 e
-             Pillai's trace |    0.0004     2.0    6312.0      1.13   0.3220 e
-     Lawley-Hotelling trace |    0.0004     2.0    6312.0      1.13   0.3220 e
-         Roy's largest root |    0.0004     2.0    6312.0      1.13   0.3220 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9988     2.0    6322.0      3.73   0.0241 e
-             Pillai's trace |    0.0012     2.0    6322.0      3.73   0.0241 e
-     Lawley-Hotelling trace |    0.0012     2.0    6322.0      3.73   0.0241 e
-         Roy's largest root |    0.0012     2.0    6322.0      3.73   0.0241 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.2594     2.0    6322.0   9023.29   0.0000 e
-             Pillai's trace |    0.7406     2.0    6322.0   9023.29   0.0000 e
-     Lawley-Hotelling trace |    2.8546     2.0    6322.0   9023.29   0.0000 e
-         Roy's largest root |    2.8546     2.0    6322.0   9023.29   0.0000 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9933     2.0    5898.0     20.02   0.0000 e
-             Pillai's trace |    0.0067     2.0    5898.0     20.02   0.0000 e
-     Lawley-Hotelling trace |    0.0068     2.0    5898.0     20.02   0.0000 e
-         Roy's largest root |    0.0068     2.0    5898.0     20.02   0.0000 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Summary statistics: mean
-  by categories of: g1classtype (CLASSROOM TYPE GRADE 1)
-
-     g1classtype |  g1free~2  WhiteA~n       age  g1attr~n  g1cla~ze     g1SAT
------------------+------------------------------------------------------------
-     SMALL CLASS |  .5924933  .6220472  5.778198  .5272727  15.87013   49.4465
-   REGULAR CLASS |  .6241206  .5615764   5.85767  .5126706  22.70955  42.91615
-REGULAR + AIDE C |  .6066514  .6512936   5.87593  .4684385  23.45736  47.99224
------------------+------------------------------------------------------------
-           Total |  .6120536  .6065646  5.851547  .4978392  21.86344  45.96079
-------------------------------------------------------------------------------
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9994     2.0    2237.0      0.66   0.5176 e
-             Pillai's trace |    0.0006     2.0    2237.0      0.66   0.5176 e
-     Lawley-Hotelling trace |    0.0006     2.0    2237.0      0.66   0.5176 e
-         Roy's largest root |    0.0006     2.0    2237.0      0.66   0.5176 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9928     2.0    2282.0      8.27   0.0003 e
-             Pillai's trace |    0.0072     2.0    2282.0      8.27   0.0003 e
-     Lawley-Hotelling trace |    0.0072     2.0    2282.0      8.27   0.0003 e
-         Roy's largest root |    0.0072     2.0    2282.0      8.27   0.0003 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9970     2.0    2274.0      3.43   0.0326 e
-             Pillai's trace |    0.0030     2.0    2274.0      3.43   0.0326 e
-     Lawley-Hotelling trace |    0.0030     2.0    2274.0      3.43   0.0326 e
-         Roy's largest root |    0.0030     2.0    2274.0      3.43   0.0326 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9977     2.0    2311.0      2.68   0.0686 e
-             Pillai's trace |    0.0023     2.0    2311.0      2.68   0.0686 e
-     Lawley-Hotelling trace |    0.0023     2.0    2311.0      2.68   0.0686 e
-         Roy's largest root |    0.0023     2.0    2311.0      2.68   0.0686 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.4303     2.0    2311.0   1529.57   0.0000 e
-             Pillai's trace |    0.5697     2.0    2311.0   1529.57   0.0000 e
-     Lawley-Hotelling trace |    1.3237     2.0    2311.0   1529.57   0.0000 e
-         Roy's largest root |    1.3237     2.0    2311.0   1529.57   0.0000 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9883     2.0    2187.0     12.93   0.0000 e
-             Pillai's trace |    0.0117     2.0    2187.0     12.93   0.0000 e
-     Lawley-Hotelling trace |    0.0118     2.0    2187.0     12.93   0.0000 e
-         Roy's largest root |    0.0118     2.0    2187.0     12.93   0.0000 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Summary statistics: mean
-  by categories of: g2classtype (CLASSROOM TYPE GRADE 2)
-
-     g2classtype |  g2free~2  WhiteA~n       age  g2attr~n  g2cla~ze     g2SAT
------------------+------------------------------------------------------------
-     SMALL CLASS |  .6554622  .5735294  5.881076  .3688525      15.5   46.4855
-   REGULAR CLASS |  .6332795  .5673077  5.908413  .3363914  23.71407  45.45185
-REGULAR + AIDE C |  .6590909  .4648562  5.940833  .3490137  23.59181  41.79765
------------------+------------------------------------------------------------
-           Total |  .6482412  .5283019  5.915149  .3484217  21.87552  44.24077
-------------------------------------------------------------------------------
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9994     2.0    1589.0      0.50   0.6048 e
-             Pillai's trace |    0.0006     2.0    1589.0      0.50   0.6048 e
-     Lawley-Hotelling trace |    0.0006     2.0    1589.0      0.50   0.6048 e
-         Roy's largest root |    0.0006     2.0    1589.0      0.50   0.6048 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9895     2.0    1587.0      8.43   0.0002 e
-             Pillai's trace |    0.0105     2.0    1587.0      8.43   0.0002 e
-     Lawley-Hotelling trace |    0.0106     2.0    1587.0      8.43   0.0002 e
-         Roy's largest root |    0.0106     2.0    1587.0      8.43   0.0002 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9989     2.0    1669.0      0.95   0.3852 e
-             Pillai's trace |    0.0011     2.0    1669.0      0.95   0.3852 e
-     Lawley-Hotelling trace |    0.0011     2.0    1669.0      0.95   0.3852 e
-         Roy's largest root |    0.0011     2.0    1669.0      0.95   0.3852 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9994     2.0    1676.0      0.54   0.5800 e
-             Pillai's trace |    0.0006     2.0    1676.0      0.54   0.5800 e
-     Lawley-Hotelling trace |    0.0007     2.0    1676.0      0.54   0.5800 e
-         Roy's largest root |    0.0007     2.0    1676.0      0.54   0.5800 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.2557     2.0    1676.0   2439.65   0.0000 e
-             Pillai's trace |    0.7443     2.0    1676.0   2439.65   0.0000 e
-     Lawley-Hotelling trace |    2.9113     2.0    1676.0   2439.65   0.0000 e
-         Roy's largest root |    2.9113     2.0    1676.0   2439.65   0.0000 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9938     2.0    1489.0      4.63   0.0099 e
-             Pillai's trace |    0.0062     2.0    1489.0      4.63   0.0099 e
-     Lawley-Hotelling trace |    0.0062     2.0    1489.0      4.63   0.0099 e
-         Roy's largest root |    0.0062     2.0    1489.0      4.63   0.0099 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Summary statistics: mean
-  by categories of: g3classtype (CLASSROOM TYPE GRADE 3)
-
-     g3classtype |  g3free~2  WhiteA~n       age  g3attr~n  g3cla~ze     g3SAT
------------------+------------------------------------------------------------
-     SMALL CLASS |  .5983146  .6684783  5.951963         0  15.97051  47.88281
-   REGULAR CLASS |  .6445498  .5774336  5.929368         0  24.05066  44.50967
-REGULAR + AIDE C |  .6863208  .5577778   5.98565         0  24.42544  41.57276
------------------+------------------------------------------------------------
-           Total |  .6455907  .5968504  5.955853         0  21.83476  44.51325
-------------------------------------------------------------------------------
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9945     2.0    1199.0      3.29   0.0377 e
-             Pillai's trace |    0.0055     2.0    1199.0      3.29   0.0377 e
-     Lawley-Hotelling trace |    0.0055     2.0    1199.0      3.29   0.0377 e
-         Roy's largest root |    0.0055     2.0    1199.0      3.29   0.0377 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9910     2.0    1267.0      5.74   0.0033 e
-             Pillai's trace |    0.0090     2.0    1267.0      5.74   0.0033 e
-     Lawley-Hotelling trace |    0.0091     2.0    1267.0      5.74   0.0033 e
-         Roy's largest root |    0.0091     2.0    1267.0      5.74   0.0033 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9989     2.0    1263.0      0.70   0.4973 e
-             Pillai's trace |    0.0011     2.0    1263.0      0.70   0.4973 e
-     Lawley-Hotelling trace |    0.0011     2.0    1263.0      0.70   0.4973 e
-         Roy's largest root |    0.0011     2.0    1263.0      0.70   0.4973 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.2495     2.0    1280.0   1924.79   0.0000 e
-             Pillai's trace |    0.7505     2.0    1280.0   1924.79   0.0000 e
-     Lawley-Hotelling trace |    3.0075     2.0    1280.0   1924.79   0.0000 e
-         Roy's largest root |    3.0075     2.0    1280.0   1924.79   0.0000 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-Test for equality of 3 group means, assuming homogeneity
-
-                            | Statistic   F(df1,     df2)   =  F      Prob>F
-     -----------------------+-----------------------------------------------
-              Wilks' lambda |    0.9907     2.0    1107.0      5.20   0.0057 e
-             Pillai's trace |    0.0093     2.0    1107.0      5.20   0.0057 e
-     Lawley-Hotelling trace |    0.0094     2.0    1107.0      5.20   0.0057 e
-         Roy's largest root |    0.0094     2.0    1107.0      5.20   0.0057 e
-     -----------------------------------------------------------------------
-                            e = exact, a = approximate, u = upper bound on F
-
-.  
-. 
-.  
-.  
-.  
-.  
-.  
-. ******************************************************
-. * Table 2
-. 
-. forvalues i == 0/3 {
-  2.         
-.         foreach var of local g`i'list { 
-  3.                 areg `var' g`i's g`i'ra if gradeenter==`i', absorb(g`i'schid) 
-  4.                 *test g`i's=g`i'ra  
-.      }
-  5. }
-
-Linear regression, absorbing indicators         Number of obs     =      6,300
-Absorbed variable: g0schid                      No. of categories =         79
-                                                F(   2,   6219)   =       0.81
-                                                Prob > F          =     0.4459
-                                                R-squared         =     0.3040
-                                                Adj R-squared     =     0.2951
-                                                Root MSE          =     0.4196
-
-------------------------------------------------------------------------------
-g0freelunc~2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g0s |  -.0018183   .0133761    -0.14   0.892      -.02804    .0244034
-        g0ra |   .0133368   .0128584     1.04   0.300    -.0118701    .0385437
-       _cons |   .4802888   .0090768    52.91   0.000      .462495    .4980825
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(78, 6219) = 34.743           Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      6,322
-Absorbed variable: g0schid                      No. of categories =         79
-                                                F(   2,   6241)   =       0.44
-                                                Prob > F          =     0.6466
-                                                R-squared         =     0.7368
-                                                Adj R-squared     =     0.7334
-                                                Root MSE          =     0.2424
-
-------------------------------------------------------------------------------
-  WhiteAsian |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g0s |  -.0001902   .0077164    -0.02   0.980     -.015317    .0149366
-        g0ra |  -.0061344   .0074166    -0.83   0.408    -.0206736    .0084047
-       _cons |   .6741612   .0052378   128.71   0.000     .6638932    .6844292
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(78, 6241) = 223.848          Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      6,315
-Absorbed variable: g0schid                      No. of categories =         79
-                                                F(   2,   6234)   =       0.85
-                                                Prob > F          =     0.4266
-                                                R-squared         =     0.0302
-                                                Adj R-squared     =     0.0177
-                                                Root MSE          =     0.3466
-
-------------------------------------------------------------------------------
-         age |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g0s |   .0142097   .0110398     1.29   0.198     -.007432    .0358515
-        g0ra |   .0086686   .0106074     0.82   0.414    -.0121255    .0294627
-       _cons |   5.425629   .0074918   724.21   0.000     5.410943    5.440316
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(78, 6234) = 2.459            Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      6,325
-Absorbed variable: g0schid                      No. of categories =         79
-                                                F(   2,   6244)   =       4.45
-                                                Prob > F          =     0.0117
-                                                R-squared         =     0.1432
-                                                Adj R-squared     =     0.1322
-                                                Root MSE          =     0.4657
-
-------------------------------------------------------------------------------
- g0attrition |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g0s |  -.0372242   .0148156    -2.51   0.012    -.0662678   -.0081806
-        g0ra |   .0025588   .0142425     0.18   0.857    -.0253614     .030479
-       _cons |   .5228486    .010056    51.99   0.000     .5031354    .5425618
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(78, 6244) = 13.270           Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      6,325
-Absorbed variable: g0schid                      No. of categories =         79
-                                                F(   2,   6244)   =   24716.75
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.9111
-                                                Adj R-squared     =     0.9099
-                                                Root MSE          =     1.1946
-
-------------------------------------------------------------------------------
- g0classsize |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g0s |  -7.210765   .0380091  -189.71   0.000    -7.285276   -7.136254
-        g0ra |   .3205899   .0365389     8.77   0.000     .2489611    .3922188
-       _cons |   22.39118   .0257985   867.93   0.000     22.34061    22.44175
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(78, 6244) = 153.480          Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      5,901
-Absorbed variable: g0schid                      No. of categories =         79
-                                                F(   2,   5820)   =      30.74
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.2443
-                                                Adj R-squared     =     0.2339
-                                                Root MSE          =    23.3288
-
-------------------------------------------------------------------------------
-       g0SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g0s |   5.373754   .7696014     6.98   0.000     3.865049    6.882459
-        g0ra |    .224978   .7380793     0.30   0.761    -1.221932    1.671888
-       _cons |   49.70943   .5223976    95.16   0.000     48.68533    50.73352
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(78, 5820) = 23.453           Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      2,240
-Absorbed variable: g1schid                      No. of categories =         76
-                                                F(   2,   2162)   =       1.23
-                                                Prob > F          =     0.2923
-                                                R-squared         =     0.2650
-                                                Adj R-squared     =     0.2388
-                                                Root MSE          =     0.4252
-
-------------------------------------------------------------------------------
-g1freelunc~2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g1s |   -.041512   .0270356    -1.54   0.125    -.0945304    .0115065
-        g1ra |  -.0048462   .0205618    -0.24   0.814    -.0451692    .0354767
-       _cons |   .6208526   .0137945    45.01   0.000     .5938007    .6479046
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(75, 2162) = 10.371           Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      2,285
-Absorbed variable: g1schid                      No. of categories =         76
-                                                F(   2,   2207)   =       1.29
-                                                Prob > F          =     0.2756
-                                                R-squared         =     0.6113
-                                                Adj R-squared     =     0.5977
-                                                Root MSE          =     0.3099
-
-------------------------------------------------------------------------------
-  WhiteAsian |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g1s |   -.010046   .0194845    -0.52   0.606    -.0482558    .0281638
-        g1ra |   .0184403   .0147932     1.25   0.213    -.0105697    .0474503
-       _cons |   .6010653   .0099361    60.49   0.000     .5815802    .6205503
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(75, 2207) = 45.726           Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      2,277
-Absorbed variable: g1schid                      No. of categories =         76
-                                                F(   2,   2199)   =       2.12
-                                                Prob > F          =     0.1203
-                                                R-squared         =     0.0830
-                                                Adj R-squared     =     0.0508
-                                                Root MSE          =     0.6010
-
-------------------------------------------------------------------------------
-         age |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g1s |  -.0711537   .0378988    -1.88   0.061    -.1454749    .0031676
-        g1ra |   .0040016   .0287319     0.14   0.889    -.0523429    .0603461
-       _cons |   5.861833   .0193002   303.72   0.000     5.823985    5.899682
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(75, 2199) = 2.556            Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      2,314
-Absorbed variable: g1schid                      No. of categories =         76
-                                                F(   2,   2236)   =       0.99
-                                                Prob > F          =     0.3700
-                                                R-squared         =     0.1018
-                                                Adj R-squared     =     0.0708
-                                                Root MSE          =     0.4821
-
-------------------------------------------------------------------------------
- g1attrition |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g1s |   .0288894   .0301222     0.96   0.338     -.030181    .0879599
-        g1ra |  -.0144861   .0228542    -0.63   0.526    -.0593037    .0303316
-       _cons |   .4986856   .0153727    32.44   0.000     .4685394    .5288319
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(75, 2236) = 3.301            Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      2,314
-Absorbed variable: g1schid                      No. of categories =         76
-                                                F(   2,   2236)   =    5293.80
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.8957
-                                                Adj R-squared     =     0.8921
-                                                Root MSE          =     1.1748
-
-------------------------------------------------------------------------------
- g1classsize |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g1s |   -6.74577   .0734088   -91.89   0.000    -6.889727   -6.601814
-        g1ra |    .627475   .0556964    11.27   0.000      .518253    .7366971
-       _cons |   22.74093   .0374638   607.01   0.000     22.66746     22.8144
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(75, 2236) = 93.215           Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      2,190
-Absorbed variable: g1schid                      No. of categories =         76
-                                                F(   2,   2112)   =      10.25
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.2393
-                                                Adj R-squared     =     0.2115
-                                                Root MSE          =    22.8535
-
-------------------------------------------------------------------------------
-       g1SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g1s |   5.779889   1.478733     3.91   0.000     2.879964    8.679814
-        g1ra |   3.900496   1.115135     3.50   0.000     1.713619    6.087374
-       _cons |   43.49672   .7471577    58.22   0.000     42.03148    44.96196
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(75, 2112) = 8.425            Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      1,592
-Absorbed variable: g2schid                      No. of categories =         73
-                                                F(   2,   1517)   =       0.55
-                                                Prob > F          =     0.5787
-                                                R-squared         =     0.3367
-                                                Adj R-squared     =     0.3043
-                                                Root MSE          =     0.3984
-
-------------------------------------------------------------------------------
-g2freelunc~2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g2s |   .0105408   .0287629     0.37   0.714    -.0458784    .0669601
-        g2ra |  -.0174309   .0243833    -0.71   0.475    -.0652595    .0303977
-       _cons |   .6526221   .0168643    38.70   0.000     .6195424    .6857018
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(72, 1517) = 10.674           Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      1,590
-Absorbed variable: g2schid                      No. of categories =         75
-                                                F(   2,   1513)   =       0.34
-                                                Prob > F          =     0.7101
-                                                R-squared         =     0.7111
-                                                Adj R-squared     =     0.6966
-                                                Root MSE          =     0.2751
-
-------------------------------------------------------------------------------
-  WhiteAsian |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g2s |  -.0161333   .0200978    -0.80   0.422    -.0555557    .0232892
-        g2ra |  -.0029136   .0168289    -0.17   0.863    -.0359241    .0300969
-       _cons |   .5328989   .0116215    45.85   0.000     .5101029    .5556948
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(74, 1513) = 49.584           Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      1,672
-Absorbed variable: g2schid                      No. of categories =         75
-                                                F(   2,   1595)   =       0.88
-                                                Prob > F          =     0.4166
-                                                R-squared         =     0.1169
-                                                Adj R-squared     =     0.0749
-                                                Root MSE          =     0.6556
-
-------------------------------------------------------------------------------
-         age |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g2s |  -.0202641   .0464206    -0.44   0.663    -.1113158    .0707876
-        g2ra |   .0360825   .0390604     0.92   0.356    -.0405325    .1126975
-       _cons |   5.905428   .0270941   217.96   0.000     5.852284    5.958572
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(74, 1595) = 2.826            Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      1,679
-Absorbed variable: g2schid                      No. of categories =         75
-                                                F(   2,   1602)   =       0.16
-                                                Prob > F          =     0.8483
-                                                R-squared         =     0.0494
-                                                Adj R-squared     =     0.0043
-                                                Root MSE          =     0.4756
-
-------------------------------------------------------------------------------
- g2attrition |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g2s |   .0192899   .0336332     0.57   0.566    -.0466799    .0852596
-        g2ra |    .007493   .0282648     0.27   0.791    -.0479468    .0629328
-       _cons |   .3412758   .0195937    17.42   0.000     .3028438    .3797078
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(74, 1602) = 1.110            Prob > F = 0.248
-
-Linear regression, absorbing indicators         Number of obs     =      1,679
-Absorbed variable: g2schid                      No. of categories =         75
-                                                F(   2,   1602)   =    4694.93
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.8963
-                                                Adj R-squared     =     0.8914
-                                                Root MSE          =     1.2861
-
-------------------------------------------------------------------------------
- g2classsize |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g2s |  -7.864634   .0909526   -86.47   0.000    -8.043032   -7.686235
-        g2ra |   .0533084    .076435     0.70   0.486    -.0966147    .2032315
-       _cons |   23.56898   .0529863   444.81   0.000     23.46506    23.67291
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(74, 1602) = 31.751           Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      1,492
-Absorbed variable: g2schid                      No. of categories =         74
-                                                F(   2,   1416)   =       0.72
-                                                Prob > F          =     0.4848
-                                                R-squared         =     0.2457
-                                                Adj R-squared     =     0.2057
-                                                Root MSE          =    22.6793
-
-------------------------------------------------------------------------------
-       g2SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g2s |   1.751193   1.718032     1.02   0.308    -1.618968    5.121354
-        g2ra |  -.1827586    1.43517    -0.13   0.899    -2.998046    2.632529
-       _cons |   43.93683   .9896056    44.40   0.000     41.99558    45.87808
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(73, 1416) = 6.159            Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      1,202
-Absorbed variable: g3schid                      No. of categories =         74
-                                                F(   2,   1126)   =       1.70
-                                                Prob > F          =     0.1838
-                                                R-squared         =     0.2739
-                                                Adj R-squared     =     0.2256
-                                                Root MSE          =     0.4211
-
-------------------------------------------------------------------------------
-g3freelunc~2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g3s |  -.0429008   .0335709    -1.28   0.202    -.1087693    .0229677
-        g3ra |   .0157151   .0315899     0.50   0.619    -.0462666    .0776967
-       _cons |   .6527533   .0219703    29.71   0.000      .609646    .6958607
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(73, 1126) = 5.704            Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      1,270
-Absorbed variable: g3schid                      No. of categories =         75
-                                                F(   2,   1193)   =       1.00
-                                                Prob > F          =     0.3693
-                                                R-squared         =     0.7060
-                                                Adj R-squared     =     0.6873
-                                                Root MSE          =     0.2744
-
-------------------------------------------------------------------------------
-  WhiteAsian |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g3s |  -.0030703   .0212079    -0.14   0.885    -.0446793    .0385386
-        g3ra |  -.0256091   .0198273    -1.29   0.197    -.0645093    .0132911
-       _cons |   .6068141   .0137561    44.11   0.000     .5798253     .633803
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(74, 1193) = 38.221           Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      1,266
-Absorbed variable: g3schid                      No. of categories =         75
-                                                F(   2,   1189)   =       0.74
-                                                Prob > F          =     0.4765
-                                                R-squared         =     0.1091
-                                                Adj R-squared     =     0.0521
-                                                Root MSE          =     0.6962
-
-------------------------------------------------------------------------------
-         age |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g3s |  -.0159818   .0535847    -0.30   0.766    -.1211129    .0891494
-        g3ra |   .0441713   .0504544     0.88   0.381    -.0548182    .1431608
-       _cons |      5.945   .0350373   169.68   0.000     5.876259    6.013742
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(74, 1189) = 1.948            Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      1,283
-Absorbed variable: g3schid                      No. of categories =         75
-                                                F(   2,   1206)   =    6390.08
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.9407
-                                                Adj R-squared     =     0.9370
-                                                Root MSE          =     1.0893
-
-------------------------------------------------------------------------------
- g3classsize |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g3s |  -8.072191    .083617   -96.54   0.000    -8.236242    -7.90814
-        g3ra |   .2348235   .0783798     3.00   0.003     .0810476    .3885994
-       _cons |   24.09809   .0544593   442.50   0.000     23.99124    24.20493
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(74, 1206) = 52.302           Prob > F = 0.000
-
-Linear regression, absorbing indicators         Number of obs     =      1,110
-Absorbed variable: g3schid                      No. of categories =         75
-                                                F(   2,   1033)   =       5.64
-                                                Prob > F          =     0.0037
-                                                R-squared         =     0.2157
-                                                Adj R-squared     =     0.1580
-                                                Root MSE          =    24.2468
-
-------------------------------------------------------------------------------
-       g3SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g3s |   4.059843    2.02224     2.01   0.045     .0916761     8.02801
-        g3ra |  -2.444319   1.891546    -1.29   0.197    -6.156031    1.267392
-       _cons |   44.12776   1.328508    33.22   0.000     41.52088    46.73465
-------------------------------------------------------------------------------
-F test of absorbed indicators: F(74, 1033) = 3.674            Prob > F = 0.000
-
-. 
-.  
-.  
-. 
-. 
-. 
-. 
-. 
-. ******************************************************
-. * Table 3
-. * Distribution of children across actual class sizes by random assignment group in first gra
-> de 
-. 
-. tab g1classsize g1classtype
-
-CLASS SIZE |      CLASSROOM TYPE GRADE 1
-   GRADE 1 | SMALL CLA  REGULAR C  REGULAR + |     Total
------------+---------------------------------+----------
-        12 |        24          0          0 |        24 
-        13 |       182          0          0 |       182 
-        14 |       252          0          0 |       252 
-        15 |       465          0          0 |       465 
-        16 |       256         16          0 |       272 
-        17 |       561         17          0 |       578 
-        18 |       108         36          0 |       144 
-        19 |        57         76         57 |       190 
-        20 |        20        200        120 |       340 
-        21 |         0        378        378 |       756 
-        22 |         0        594        330 |       924 
-        23 |         0        437        460 |       897 
-        24 |         0        384        264 |       648 
-        25 |         0        175        225 |       400 
-        26 |         0        130        234 |       364 
-        27 |         0         54        108 |       162 
-        28 |         0         28         56 |        84 
-        29 |         0         29         58 |        87 
-        30 |         0         30         30 |        60 
------------+---------------------------------+----------
-     Total |     1,925      2,584      2,320 |     6,829 
-
-. 
-. 
-. 
-. 
-. 
-. 
-. 
-. ******************************************************
-. * Figure 1 
-. * Distribution of Test Percentile Scores by Class Size and Grade 
-. 
-. forvalues n=0/3 {
-  2. twoway kdensity g`n'SAT if (g`n'classtype==1)|| kdensity g`n'SAT if (g`n'classtype==2 | g
-> `n'classtype==3), title("Average SAT Distributions for Grade `n'") ytitle("Density") xtitle(
-> "SAT Percentile") legend(label(1 "Small Class") label(2 "Regular Class")) lpattern("solid" "
-> dash") scheme(s1color)
-  3. graph export "./Output/figure1_`n'.png", replace
-  4. }
-(file ./Output/figure1_0.png written in PNG format)
-(file ./Output/figure1_1.png written in PNG format)
-(file ./Output/figure1_2.png written in PNG format)
-(file ./Output/figure1_3.png written in PNG format)
-
-. 
-. 
-. 
-. 
-. 
-. 
-. ******************************************************
-. * Table 5
-. * OLS and Reduced-Form (still OLS) Estimates of Effect of Class-Size Assignment on Average P
-> ercentile of SAT. 
-. * Four panels for when student entered TNSTAR
-. * All models cluster standard errors by class (gktchid is teacher ID within that grade so wi
-> ll indicate the class).
-. 
-. * OLS - Actual Class Size; Outcome is average SAT percentile; Four specifications 
-. ssc install  est2tex, replace
-checking est2tex consistency and verifying not already installed...
+. ssc install ivreg2
+checking ivreg2 consistency and verifying not already installed...
 all files already exist and are up to date.
 
-.         * Column 1 for each panel. Small Class, Regular/Aide class, no school FE. 
-.         * Not perfect, but good enough for now to move on. Within the ballpark
 . forvalues i == 0/3 {
-  2.         reg g`i'SAT g`i's g`i'ra, vce(cluster g`i'tchid) 
-  3.         est2vec table5`i', replace vars(g`i'SAT g`i's g`i'ra WhiteAsian girl g`i'freelunc
-> h_2 WhiteTeacher`i' MaleTeacher`i' g`i'tyears g`i'md) e(r2`i') name(Col1`i')
-  4. } 
+  2.         ivreg2 g`i'SAT (g`i'classsize=i.g`i'classtype) WhiteAsian girl g`
+> i'freelunch_2 WhiteTeacher`i' MaleTeacher`i' g`i'tyears g`i'md, vce(cluster 
+> g`i'tchid) absorb(g`i'schid)
+  3.         *est2vec table7`i', addto(table5`i') name(Col4`i')
+. } 
+Error: must have ranktest version 01.3.02 or greater installed
+To install, from within Stata type ssc install ranktest
+r(601);
 
-Linear regression                               Number of obs     =      5,901
-                                                F(2, 324)         =       3.50
-                                                Prob > F          =     0.0314
-                                                R-squared         =     0.0067
-                                                Root MSE          =     26.568
+end of do-file
 
-                              (Std. Err. adjusted for 325 clusters in g0tchid)
-------------------------------------------------------------------------------
-             |               Robust
-       g0SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g0s |   4.807123   2.187648     2.20   0.029     .5033357     9.11091
-        g0ra |   .0635859   2.216389     0.03   0.977    -4.296745    4.423917
-       _cons |   49.93662   1.656133    30.15   0.000     46.67848    53.19475
-------------------------------------------------------------------------------
+r(601);
 
+. do "C:\Users\mreuther\AppData\Local\Temp\12\STD23a4_000000.tmp"
 
-Linear regression                               Number of obs     =      6,635
-                                                F(2, 338)         =      10.37
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.0174
-                                                Root MSE          =     26.636
+. ssc install ranktest
+checking ranktest consistency and verifying not already installed...
+installing into c:\ado\plus\...
+file c:\ado\plus\next.trk already exists
+r(602);
 
-                              (Std. Err. adjusted for 339 clusters in g1tchid)
-------------------------------------------------------------------------------
-             |               Robust
-       g1SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g1s |   8.802856   1.950381     4.51   0.000     4.966443    12.63927
-        g1ra |   3.460671   2.029056     1.71   0.089    -.5304968    7.451838
-       _cons |   48.09214   1.399765    34.36   0.000     45.33879    50.84549
-------------------------------------------------------------------------------
+end of do-file
 
+r(602);
 
-Linear regression                               Number of obs     =      6,360
-                                                F(2, 334)         =       4.97
-                                                Prob > F          =     0.0075
-                                                R-squared         =     0.0081
-                                                Root MSE          =     26.382
+. do "C:\Users\mreuther\AppData\Local\Temp\12\STD23a4_000000.tmp"
 
-                              (Std. Err. adjusted for 335 clusters in g2tchid)
-------------------------------------------------------------------------------
-             |               Robust
-       g2SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g2s |   5.673254   1.942338     2.92   0.004     1.852497    9.494011
-        g2ra |   1.061923   2.030795     0.52   0.601    -2.932838    5.056684
-       _cons |   49.20205   1.439289    34.18   0.000     46.37083    52.03326
-------------------------------------------------------------------------------
+. ssc install ranktest, replace
+checking ranktest consistency and verifying not already installed...
+installing into c:\ado\plus\...
+file c:\ado\plus\next.trk already exists
+r(602);
 
+end of do-file
 
-Linear regression                               Number of obs     =      6,354
-                                                F(2, 333)         =       7.34
-                                                Prob > F          =     0.0008
-                                                R-squared         =     0.0104
-                                                Root MSE          =     26.899
+r(602);
 
-                              (Std. Err. adjusted for 334 clusters in g3tchid)
-------------------------------------------------------------------------------
-             |               Robust
-       g3SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g3s |   5.653709   1.886542     3.00   0.003     1.942666    9.364752
-        g3ra |  -.3956972   1.924119    -0.21   0.837    -4.180657    3.389263
-       _cons |   49.57502   1.451491    34.15   0.000     46.71977    52.43026
-------------------------------------------------------------------------------
+. do "C:\Users\mreuther\AppData\Local\Temp\12\STD23a4_000000.tmp"
 
-
-.         * 2. Small Class, Regular/Aide class, school FE
-.         * Not perfect, still mostly ballpark
 . forvalues i == 0/3 {
-  2.     areg g`i'SAT g`i's g`i'ra, vce(cluster g`i'tchid) absorb(g`i'schid)  
-  3.         est2vec table5`i', addto(table5`i') name(Col2`i')
-  4. }       
+  2.         ivreg2 g`i'SAT (g`i'classsize=i.g`i'classtype) WhiteAsian girl g`
+> i'freelunch_2 WhiteTeacher`i' MaleTeacher`i' g`i'tyears g`i'md, vce(cluster 
+> g`i'tchid) absorb(g`i'schid)
+  3.         *est2vec table7`i', addto(table5`i') name(Col4`i')
+. } 
+Error: must have ranktest version 01.3.02 or greater installed
+To install, from within Stata type ssc install ranktest
+r(601);
 
-Linear regression, absorbing indicators         Number of obs     =      5,901
-Absorbed variable: g0schid                      No. of categories =         79
-                                                F(   2,    324)   =      11.74
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.2443
-                                                Adj R-squared     =     0.2339
-                                                Root MSE          =    23.3288
+end of do-file
 
-                              (Std. Err. adjusted for 325 clusters in g0tchid)
-------------------------------------------------------------------------------
-             |               Robust
-       g0SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g0s |   5.373754   1.263391     4.25   0.000     2.888268     7.85924
-        g0ra |    .224978   1.124493     0.20   0.842    -1.987251    2.437207
-       _cons |   49.70943   .8418155    59.05   0.000     48.05331    51.36554
-------------------------------------------------------------------------------
+r(601);
 
+. ssc install ranktest 
+checking ranktest consistency and verifying not already installed...
+installing into c:\ado\plus\...
+file c:\ado\plus\next.trk already exists
+r(602);
 
-Linear regression, absorbing indicators         Number of obs     =      6,635
-Absorbed variable: g1schid                      No. of categories =         76
-                                                F(   2,    338)   =      26.31
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.2346
-                                                Adj R-squared     =     0.2256
-                                                Root MSE          =    23.6427
+. do "C:\Users\mreuther\AppData\Local\Temp\12\STD23a4_000000.tmp"
 
-                              (Std. Err. adjusted for 339 clusters in g1tchid)
-------------------------------------------------------------------------------
-             |               Robust
-       g1SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g1s |   8.501627   1.185145     7.17   0.000     6.170439    10.83282
-        g1ra |   2.219862   .9746077     2.28   0.023     .3028013    4.136922
-       _cons |   48.59626   .7211819    67.38   0.000     47.17769    50.01483
-------------------------------------------------------------------------------
-
-
-Linear regression, absorbing indicators         Number of obs     =      6,360
-Absorbed variable: g2schid                      No. of categories =         74
-                                                F(   2,    334)   =      13.09
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.2100
-                                                Adj R-squared     =     0.2006
-                                                Root MSE          =    23.6799
-
-                              (Std. Err. adjusted for 335 clusters in g2tchid)
-------------------------------------------------------------------------------
-             |               Robust
-       g2SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g2s |   6.172043   1.261714     4.89   0.000     3.690136     8.65395
-        g2ra |   1.379643   1.118223     1.23   0.218    -.8200045    3.579291
-       _cons |   48.93879   .8267897    59.19   0.000     47.31241    50.56516
-------------------------------------------------------------------------------
-
-
-Linear regression, absorbing indicators         Number of obs     =      6,354
-Absorbed variable: g3schid                      No. of categories =         75
-                                                F(   2,    333)   =      16.76
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.1699
-                                                Adj R-squared     =     0.1598
-                                                Root MSE          =    24.7815
-
-                              (Std. Err. adjusted for 334 clusters in g3tchid)
-------------------------------------------------------------------------------
-             |               Robust
-       g3SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-         g3s |   5.780107   1.186537     4.87   0.000     3.446054     8.11416
-        g3ra |  -.1299284   1.099665    -0.12   0.906    -2.293094    2.033237
-       _cons |   49.43391   .8396112    58.88   0.000      47.7823    51.08552
-------------------------------------------------------------------------------
-
-
-.         * 3. Small Class, Regular/Aide class, White/Asian, Girl, Free Lunch, school FE
-.         * Not perfect, still mostly ballpark but its getting larger
 . forvalues i == 0/3 {
-  2.         areg g`i'SAT g`i's g`i'ra  WhiteAsian girl g`i'freelunch_2, vce(cluster g`i'tchid
-> ) absorb(g`i'schid)
-  3.         est2vec table5`i', addto(table5`i') name(Col3`i')
-  4. }               
+  2.         ivregress 2sls g`i'SAT (g`i'classsize=i.g`i'classtype) WhiteAsian
+>  girl g`i'freelunch_2 WhiteTeacher`i' MaleTeacher`i' g`i'tyears g`i'md, vce(
+> cluster g`i'tchid) absorb(g`i'schid)
+  3.         *est2vec table7`i', addto(table5`i') name(Col4`i')
+. } 
+option absorb() not allowed
+r(198);
 
-Linear regression, absorbing indicators         Number of obs     =      5,882
-Absorbed variable: g0schid                      No. of categories =         79
-                                                F(   5,    324)   =      87.95
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.3048
-                                                Adj R-squared     =     0.2948
-                                                Root MSE          =    22.3950
+end of do-file
 
-                               (Std. Err. adjusted for 325 clusters in g0tchid)
--------------------------------------------------------------------------------
-              |               Robust
-        g0SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
---------------+----------------------------------------------------------------
-          g0s |    5.42768   1.218605     4.45   0.000     3.030302    7.825058
-         g0ra |   .4710453   1.094424     0.43   0.667    -1.682029    2.624119
-   WhiteAsian |   8.391012   1.358123     6.18   0.000     5.719159    11.06287
-         girl |   4.419905   .6295036     7.02   0.000     3.181474    5.658335
-g0freelunch_2 |  -13.14856   .7701281   -17.07   0.000    -14.66364   -11.63347
-        _cons |   48.11597   1.305997    36.84   0.000     45.54667    50.68528
--------------------------------------------------------------------------------
+r(198);
 
+. do "C:\Users\mreuther\AppData\Local\Temp\12\STD23a4_000000.tmp"
 
-Linear regression, absorbing indicators         Number of obs     =      6,465
-Absorbed variable: g1schid                      No. of categories =         76
-                                                F(   5,    336)   =      82.67
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.2967
-                                                Adj R-squared     =     0.2879
-                                                Root MSE          =    22.6562
-
-                               (Std. Err. adjusted for 337 clusters in g1tchid)
--------------------------------------------------------------------------------
-              |               Robust
-        g1SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
---------------+----------------------------------------------------------------
-          g1s |   7.877474   1.164316     6.77   0.000     5.587206    10.16774
-         g1ra |   2.171727   .9732896     2.23   0.026     .2572187    4.086236
-   WhiteAsian |   6.960588    1.18611     5.87   0.000     4.627451    9.293724
-         girl |   3.781812   .5618542     6.73   0.000     2.676617    4.887007
-g1freelunch_2 |  -13.43355   .8718425   -15.41   0.000    -15.14851   -11.71859
-        _cons |   49.23152   1.316907    37.38   0.000      46.6411    51.82194
--------------------------------------------------------------------------------
-
-
-Linear regression, absorbing indicators         Number of obs     =      6,038
-Absorbed variable: g2schid                      No. of categories =         72
-                                                F(   5,    324)   =      95.97
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.2766
-                                                Adj R-squared     =     0.2674
-                                                Root MSE          =    22.6005
-
-                               (Std. Err. adjusted for 325 clusters in g2tchid)
--------------------------------------------------------------------------------
-              |               Robust
-        g2SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
---------------+----------------------------------------------------------------
-          g2s |   5.721202   1.221561     4.68   0.000     3.318009    8.124395
-         g2ra |   1.395766   1.081037     1.29   0.198    -.7309708    3.522503
-   WhiteAsian |    6.38551   1.193475     5.35   0.000     4.037572    8.733448
-         girl |   3.406748   .5994066     5.68   0.000     2.227527    4.585968
-g2freelunch_2 |  -13.67852   .7170604   -19.08   0.000     -15.0892   -12.26784
-        _cons |   50.22592    1.18012    42.56   0.000     47.90425    52.54758
--------------------------------------------------------------------------------
-
-
-Linear regression, absorbing indicators         Number of obs     =      6,163
-Absorbed variable: g3schid                      No. of categories =         74
-                                                F(   5,    325)   =      78.69
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.2230
-                                                Adj R-squared     =     0.2131
-                                                Root MSE          =    23.9473
-
-                               (Std. Err. adjusted for 326 clusters in g3tchid)
--------------------------------------------------------------------------------
-              |               Robust
-        g3SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
---------------+----------------------------------------------------------------
-          g3s |   5.105116   1.195982     4.27   0.000     2.752272     7.45796
-         g3ra |  -.2597364   1.109201    -0.23   0.815    -2.441856    1.922383
-   WhiteAsian |   6.129207   1.437798     4.26   0.000      3.30064    8.957773
-         girl |   4.227395   .6514716     6.49   0.000     2.945762    5.509029
-g3freelunch_2 |  -13.11203    .813054   -16.13   0.000    -14.71155   -11.51252
-        _cons |   50.17113   1.473255    34.05   0.000     47.27281    53.06945
--------------------------------------------------------------------------------
-
-
-.         * 4. Small Class, Regular/Aide class, White/Asian, Girl, Free Lunch, White Teacher, 
-> Teacher Experience (gktyears), Teacher Male, Master's Degree, school FE
-.         * Not perfect, still mostly ballpark of the size of column 3
 . forvalues i == 0/3 {
-  2.         areg g`i'SAT g`i's g`i'ra WhiteAsian girl g`i'freelunch_2 WhiteTeacher`i' MaleTea
-> cher`i' g`i'tyears g`i'md, vce(cluster g`i'tchid) absorb(g`i'schid)
-  3.         est2vec table5`i', addto(table5`i') name(Col4`i')
-  4. }       
+  2.         ivregress 2sls g`i'SAT (g`i'classsize=i.g`i'classtype) WhiteAsian
+>  girl g`i'freelunch_2 WhiteTeacher`i' MaleTeacher`i' g`i'tyears g`i'md i.g`i
+> 'schid, vce(cluster g`i'tchid) 
+  3.         *est2vec table7`i', addto(table5`i') name(Col4`i')
+. } 
 note: MaleTeacher0 omitted because of collinearity
 
-Linear regression, absorbing indicators         Number of obs     =      5,839
-Absorbed variable: g0schid                      No. of categories =         79
-                                                F(   8,    322)   =      54.69
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.3086
-                                                Adj R-squared     =     0.2983
-                                                Root MSE          =    22.3558
+Instrumental variables (2SLS) regression          Number of obs   =      5,839
+                                                  Wald chi2(85)   =    7103.44
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.3070
+                                                  Root MSE        =     22.214
 
-                               (Std. Err. adjusted for 323 clusters in g0tchid)
--------------------------------------------------------------------------------
-              |               Robust
-        g0SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
---------------+----------------------------------------------------------------
-          g0s |   5.357185   1.197818     4.47   0.000     3.000647    7.713723
-         g0ra |   .2674939   1.066482     0.25   0.802    -1.830658    2.365646
-   WhiteAsian |   8.443814   1.365969     6.18   0.000     5.756463    11.13117
-         girl |   4.393033   .6297645     6.98   0.000     3.154061    5.632006
-g0freelunch_2 |  -13.10186   .7739185   -16.93   0.000    -14.62443   -11.57928
-WhiteTeacher0 |  -1.109729   2.160372    -0.51   0.608    -5.359956    3.140497
- MaleTeacher0 |          0  (omitted)
-     g0tyears |   .2636005   .1051171     2.51   0.013     .0567976    .4704035
-         g0md |  -.6072803   1.061095    -0.57   0.568    -2.694835    1.480274
-        _cons |   46.96455   2.474928    18.98   0.000     42.09548    51.83362
--------------------------------------------------------------------------------
+                              (Std. Err. adjusted for 323 clusters in g0tchid)
+------------------------------------------------------------------------------
+             |               Robust
+       g0SAT |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ g0classsize |  -.7033036    .141377    -4.97   0.000    -.9803974   -.4262097
+  WhiteAsian |   8.278694   1.356054     6.10   0.000     5.620877    10.93651
+        girl |   4.348792   .6276121     6.93   0.000     3.118695    5.578889
+g0freelunc~2 |  -13.07638   .7710542   -16.96   0.000    -14.58762   -11.56515
+WhiteTeach~0 |  -.8639365   2.204564    -0.39   0.695    -5.184803     3.45693
+MaleTeacher0 |          0  (omitted)
+    g0tyears |   .2754401   .1053918     2.61   0.009      .068876    .4820043
+        g0md |  -.7901462   1.050316    -0.75   0.452    -2.848728    1.268436
+             |
+     g0schid |
+     123056  |   16.40417   4.067704     4.03   0.000      8.43162    24.37673
+     128068  |   16.67947   3.152828     5.29   0.000     10.50004     22.8589
+     128076  |   7.549331   3.365276     2.24   0.025     .9535117    14.14515
+     128079  |   9.190392    7.53722     1.22   0.223    -5.582288    23.96307
+     130085  |   14.37732   3.042942     4.72   0.000     8.413267    20.34138
+     159171  |   44.34981   4.806978     9.23   0.000     34.92831    53.77132
+     161176  |   10.75996   3.634569     2.96   0.003     3.636339    17.88359
+     161183  |    35.6523    3.80092     9.38   0.000     28.20263    43.10197
+     162184  |   17.01524   5.280387     3.22   0.001     6.665875    27.36461
+     164198  |   25.76635    5.49197     4.69   0.000     15.00229    36.53042
+     165199  |   38.10366   5.896079     6.46   0.000     26.54755    49.65976
+     166203  |   16.16463    4.96327     3.26   0.001     6.436805    25.89246
+     168211  |   22.71755   4.822128     4.71   0.000     13.26635    32.16875
+     168214  |   36.73919   2.977204    12.34   0.000     30.90398     42.5744
+     169219  |   33.96819   2.976651    11.41   0.000     28.13406    39.80232
+     169229  |   33.12131   4.204848     7.88   0.000     24.87996    41.36266
+     169231  |   5.666067   3.534721     1.60   0.109    -1.261858    12.59399
+     169280  |   29.52073   4.450903     6.63   0.000     20.79712    38.24434
+     170295  |   29.12275   7.436591     3.92   0.000      14.5473     43.6982
+     173312  |   45.09846   3.464094    13.02   0.000     38.30896    51.88796
+     176329  |   38.91219   7.299424     5.33   0.000     24.60558     53.2188
+     180344  |   30.18796   5.567023     5.42   0.000     19.27679    41.09912
+     189378  |    9.68065   4.588807     2.11   0.035     .6867538    18.67455
+     189382  |    25.9102    5.31433     4.88   0.000     15.49431     36.3261
+     189396  |   11.57616   4.083977     2.83   0.005     3.571717    19.58061
+     191411  |   20.57364   4.664705     4.41   0.000     11.43099     29.7163
+     193422  |   34.00235   3.652323     9.31   0.000     26.84393    41.16078
+     193423  |   28.06602   3.553725     7.90   0.000     21.10085    35.03119
+     201449  |   37.60383   5.480478     6.86   0.000     26.86229    48.34536
+     203452  |   20.67497   3.698164     5.59   0.000     13.42671    27.92324
+     203457  |   34.47604   4.350024     7.93   0.000     25.95015    43.00193
+     205488  |     26.649   4.626657     5.76   0.000     17.58092    35.71708
+     205489  |   22.66962   4.152609     5.46   0.000     14.53066    30.80859
+     205490  |   8.472247   3.152593     2.69   0.007     2.293279    14.65121
+     205491  |   16.08422   6.219057     2.59   0.010     3.895089    28.27334
+     205492  |   37.97508   6.840813     5.55   0.000     24.56733    51.38283
+     208501  |   20.03359   4.338158     4.62   0.000     11.53096    28.53623
+     208503  |    5.89434   3.482321     1.69   0.091    -.9308839    12.71956
+     209510  |   15.62385   5.262617     2.97   0.003      5.30931    25.93839
+     212522  |   27.38642   4.937421     5.55   0.000     17.70926    37.06359
+     215533  |   37.23127   4.161003     8.95   0.000     29.07585    45.38668
+     216536  |   20.04112   4.021886     4.98   0.000     12.15837    27.92387
+     218562  |   30.86869    6.48095     4.76   0.000     18.16626    43.57112
+     221571  |  -2.860694   4.155005    -0.69   0.491    -11.00435    5.282966
+     221574  |   7.660963   3.434684     2.23   0.026     .9291057    14.39282
+     225585  |    16.5289     5.3635     3.08   0.002     6.016631    27.04116
+     228606  |   27.03678   6.598524     4.10   0.000     14.10391    39.96965
+     230612  |   43.31227   3.378293    12.82   0.000     36.69094     49.9336
+     231616  |   30.00472   4.367139     6.87   0.000     21.44528    38.56415
+     234628  |   28.48757   3.676144     7.75   0.000     21.28246    35.69268
+     244697  |   20.79029   5.395526     3.85   0.000     10.21525    31.36533
+     244708  |   14.98511   3.971155     3.77   0.000      7.20179    22.76843
+     244723  |   16.65119   4.200993     3.96   0.000     8.417396    24.88499
+     244727  |   28.87731   6.021088     4.80   0.000      17.0762    40.67843
+     244728  |    15.3134   4.167209     3.67   0.000     7.145817    23.48098
+     244736  |   42.83992   4.398951     9.74   0.000     34.21814    51.46171
+     244745  |   39.64189   4.372906     9.07   0.000     31.07115    48.21262
+     244746  |   34.32691   8.126455     4.22   0.000     18.39935    50.25447
+     244755  |   30.78154   5.529467     5.57   0.000     19.94399     41.6191
+     244764  |   29.23797   5.571185     5.25   0.000     18.31864    40.15729
+     244774  |   30.97818   5.228596     5.92   0.000     20.73032    41.22604
+     244776  |    30.5428   5.159917     5.92   0.000     20.42955    40.65606
+     244780  |   57.27364   8.847772     6.47   0.000     39.93233    74.61496
+     244796  |   19.06118   4.327791     4.40   0.000     10.57886    27.54349
+     244799  |   20.18556   4.167555     4.84   0.000      12.0173    28.35382
+     244801  |   20.12692   4.916716     4.09   0.000     10.49034    29.76351
+     244806  |   53.54003   5.855547     9.14   0.000     42.06337    65.01669
+     244818  |   18.13327   3.661353     4.95   0.000     10.95715    25.30939
+     244831  |    21.9501   9.148295     2.40   0.016     4.019774    39.88043
+     244839  |   38.66471   6.358163     6.08   0.000     26.20294    51.12648
+     252885  |   28.82398   5.578275     5.17   0.000     17.89076     39.7572
+     253888  |   20.92911   4.080586     5.13   0.000      12.9313    28.92691
+     257899  |   18.00529    3.77138     4.77   0.000     10.61352    25.39706
+     257905  |   33.91906   3.377326    10.04   0.000     27.29963     40.5385
+     259915  |   18.39651   5.119707     3.59   0.000     8.362073    28.43096
+     261927  |   24.45541   3.938122     6.21   0.000     16.73683    32.17399
+     262937  |   38.77751   3.776902    10.27   0.000     31.37492     46.1801
+     264945  |   35.34399   3.431117    10.30   0.000     28.61912    42.06885
+             |
+       _cons |   36.76071   4.801013     7.66   0.000     27.35089    46.17052
+------------------------------------------------------------------------------
+Instrumented:  g0classsize
+Instruments:   WhiteAsian girl g0freelunch_2 WhiteTeacher0 g0tyears g0md
+               123056.g0schid 128068.g0schid 128076.g0schid 128079.g0schid
+               130085.g0schid 159171.g0schid 161176.g0schid 161183.g0schid
+               162184.g0schid 164198.g0schid 165199.g0schid 166203.g0schid
+               168211.g0schid 168214.g0schid 169219.g0schid 169229.g0schid
+               169231.g0schid 169280.g0schid 170295.g0schid 173312.g0schid
+               176329.g0schid 180344.g0schid 189378.g0schid 189382.g0schid
+               189396.g0schid 191411.g0schid 193422.g0schid 193423.g0schid
+               201449.g0schid 203452.g0schid 203457.g0schid 205488.g0schid
+               205489.g0schid 205490.g0schid 205491.g0schid 205492.g0schid
+               208501.g0schid 208503.g0schid 209510.g0schid 212522.g0schid
+               215533.g0schid 216536.g0schid 218562.g0schid 221571.g0schid
+               221574.g0schid 225585.g0schid 228606.g0schid 230612.g0schid
+               231616.g0schid 234628.g0schid 244697.g0schid 244708.g0schid
+               244723.g0schid 244727.g0schid 244728.g0schid 244736.g0schid
+               244745.g0schid 244746.g0schid 244755.g0schid 244764.g0schid
+               244774.g0schid 244776.g0schid 244780.g0schid 244796.g0schid
+               244799.g0schid 244801.g0schid 244806.g0schid 244818.g0schid
+               244831.g0schid 244839.g0schid 252885.g0schid 253888.g0schid
+               257899.g0schid 257905.g0schid 259915.g0schid 261927.g0schid
+               262937.g0schid 264945.g0schid 2.g0classtype 3.g0classtype
 
+Instrumental variables (2SLS) regression          Number of obs   =      6,452
+                                                  Wald chi2(83)   =   16266.95
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.2985
+                                                  Root MSE        =     22.496
 
-Linear regression, absorbing indicators         Number of obs     =      6,452
-Absorbed variable: g1schid                      No. of categories =         76
-                                                F(   9,    335)   =      50.81
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.2997
-                                                Adj R-squared     =     0.2904
-                                                Root MSE          =    22.6205
+                              (Std. Err. adjusted for 336 clusters in g1tchid)
+------------------------------------------------------------------------------
+             |               Robust
+       g1SAT |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ g1classsize |  -.8842624    .145297    -6.09   0.000    -1.169039   -.5994855
+  WhiteAsian |   7.048981   1.187074     5.94   0.000     4.722358    9.375603
+        girl |   3.858379   .5594352     6.90   0.000     2.761906    4.954852
+g1freelunc~2 |  -13.56247   .8667967   -15.65   0.000    -15.26136   -11.86358
+WhiteTeach~1 |  -4.509072   1.961306    -2.30   0.022    -8.353161   -.6649834
+MaleTeacher1 |   10.98926   2.762475     3.98   0.000     5.574907    16.40361
+    g1tyears |   .0697804   .0595001     1.17   0.241    -.0468376    .1863984
+        g1md |     .47309   1.067159     0.44   0.658    -1.618504    2.564684
+             |
+     g1schid |
+     123056  |   7.988694     4.2242     1.89   0.059    -.2905866    16.26797
+     128076  |  -2.922527   4.504023    -0.65   0.516    -11.75025    5.905195
+     128079  |   6.049731   1.728443     3.50   0.000     2.662046    9.437416
+     130085  |   23.45745   4.155166     5.65   0.000     15.31348    31.60143
+     159171  |    18.7552   2.117997     8.86   0.000       14.604     22.9064
+     161176  |   10.86399    2.19944     4.94   0.000     6.553172    15.17482
+     161183  |   27.31967   3.689471     7.40   0.000     20.08844    34.55091
+     162184  |   16.72844   3.245653     5.15   0.000     10.36708     23.0898
+     164198  |   9.526317   1.348898     7.06   0.000     6.882526    12.17011
+     165199  |   27.53098   3.107362     8.86   0.000     21.44066    33.62129
+     166203  |  -1.549795   4.065941    -0.38   0.703    -9.518893    6.419304
+     168211  |   22.36573   1.410754    15.85   0.000      19.6007    25.13076
+     168214  |    29.1944   2.112088    13.82   0.000     25.05478    33.33401
+     169219  |   15.04371   3.955482     3.80   0.000     7.291112    22.79631
+     169229  |   13.57715   3.606239     3.76   0.000     6.509052    20.64525
+     169231  |   7.207209   4.210093     1.71   0.087    -1.044422    15.45884
+     169280  |   18.07048   5.357231     3.37   0.001     7.570502    28.57046
+     170295  |   30.08058   4.240725     7.09   0.000     21.76891    38.39225
+     173312  |   18.70433   4.895034     3.82   0.000     9.110239    28.29842
+     176329  |   21.63673   6.171292     3.51   0.000     9.541224    33.73224
+     180344  |   17.34133   2.771125     6.26   0.000     11.91002    22.77263
+     189378  |   11.13123   4.272724     2.61   0.009     2.756841    19.50561
+     189382  |   17.00632   1.624529    10.47   0.000      13.8223    20.19033
+     189396  |   10.08831   3.343488     3.02   0.003     3.535191    16.64142
+     191411  |  -3.171979   1.969404    -1.61   0.107    -7.031939    .6879817
+     193422  |   10.52871    1.41439     7.44   0.000     7.756557    13.30086
+     193423  |    6.05925   3.004163     2.02   0.044     .1711992     11.9473
+     201449  |   25.44318    3.63934     6.99   0.000     18.31021    32.57616
+     203452  |   19.62268   5.276651     3.72   0.000     9.280638    29.96473
+     203457  |   24.59781   2.823611     8.71   0.000     19.06364    30.13199
+     205488  |   1.816737   3.804579     0.48   0.633      -5.6401    9.273575
+     205490  |   25.63384   10.04721     2.55   0.011     5.941666    45.32602
+     205491  |    14.7708   4.488729     3.29   0.001     5.973053    23.56855
+     205492  |   7.080663   3.019264     2.35   0.019     1.163014    12.99831
+     208501  |   8.413979   3.989676     2.11   0.035     .5943568     16.2336
+     208503  |   3.489914   5.101108     0.68   0.494    -6.508075     13.4879
+     209510  |   10.95652   2.038952     5.37   0.000     6.960249    14.95279
+     212522  |   6.919948   4.787945     1.45   0.148    -2.464252    16.30415
+     215533  |   20.68381   6.611769     3.13   0.002     7.724982    33.64264
+     216537  |   17.22743   3.354511     5.14   0.000     10.65271    23.80215
+     218562  |   21.32492   2.526444     8.44   0.000     16.37318    26.27666
+     221571  |   -4.23214   3.856249    -1.10   0.272    -11.79025    3.325969
+     221574  |   2.983192   3.522722     0.85   0.397    -3.921216      9.8876
+     225585  |   3.067759   1.885721     1.63   0.104    -.6281867    6.763704
+     228606  |   28.69005   1.843106    15.57   0.000     25.07763    32.30247
+     230612  |   18.83552   3.215946     5.86   0.000     12.53238    25.13866
+     231616  |   18.31557   6.301868     2.91   0.004     5.964141    30.66701
+     234628  |   24.90287   4.471066     5.57   0.000     16.13974      33.666
+     244697  |   6.879037   3.233177     2.13   0.033     .5421261    13.21595
+     244708  |   3.650992   3.908203     0.93   0.350    -4.008944    11.31093
+     244723  |    3.11299   3.359759     0.93   0.354    -3.472016    9.697996
+     244727  |   19.57832   2.715572     7.21   0.000      14.2559    24.90075
+     244728  |  -3.377304   5.698149    -0.59   0.553    -14.54547    7.790863
+     244736  |   .2343123    3.51159     0.07   0.947    -6.648277    7.116902
+     244745  |    4.56491   2.620332     1.74   0.081    -.5708466    9.700667
+     244746  |   18.50881   3.450301     5.36   0.000     11.74635    25.27128
+     244755  |   2.520541   2.892408     0.87   0.384    -3.148474    8.189556
+     244764  |   10.50926    6.47173     1.62   0.104      -2.1751    23.19362
+     244774  |  -5.079512     4.6684    -1.09   0.277    -14.22941    4.070384
+     244776  |  -2.184705   4.803571    -0.45   0.649    -11.59953    7.230121
+     244780  |  -7.776577   4.152689    -1.87   0.061     -15.9157    .3625436
+     244796  |   8.122081   2.509092     3.24   0.001     3.204351    13.03981
+     244799  |   11.51919   3.276144     3.52   0.000     5.098069    17.94032
+     244801  |  -3.476757    1.48559    -2.34   0.019    -6.388459   -.5650547
+     244806  |   9.612447   3.686123     2.61   0.009     2.387779    16.83712
+     244831  |    -1.0342   2.174592    -0.48   0.634    -5.296323    3.227922
+     244839  |   20.34341   4.054829     5.02   0.000     12.39609    28.29073
+     252885  |   15.09988   1.655636     9.12   0.000      11.8549    18.34487
+     253888  |   9.054061   3.002482     3.02   0.003     3.169304    14.93882
+     257899  |   6.486401   2.865346     2.26   0.024     .8704258    12.10238
+     257905  |   19.50065   2.868994     6.80   0.000     13.87753    25.12377
+     259915  |   3.186265   4.728131     0.67   0.500    -6.080701    12.45323
+     261927  |   10.44939   2.205116     4.74   0.000     6.127442    14.77134
+     262937  |   27.03156   1.818809    14.86   0.000     23.46676    30.59636
+     264945  |    21.3497   3.520308     6.06   0.000     14.45002    28.24937
+             |
+       _cons |   61.26722   3.758075    16.30   0.000     53.90152    68.63291
+------------------------------------------------------------------------------
+Instrumented:  g1classsize
+Instruments:   WhiteAsian girl g1freelunch_2 WhiteTeacher1 MaleTeacher1
+               g1tyears g1md 123056.g1schid 128076.g1schid 128079.g1schid
+               130085.g1schid 159171.g1schid 161176.g1schid 161183.g1schid
+               162184.g1schid 164198.g1schid 165199.g1schid 166203.g1schid
+               168211.g1schid 168214.g1schid 169219.g1schid 169229.g1schid
+               169231.g1schid 169280.g1schid 170295.g1schid 173312.g1schid
+               176329.g1schid 180344.g1schid 189378.g1schid 189382.g1schid
+               189396.g1schid 191411.g1schid 193422.g1schid 193423.g1schid
+               201449.g1schid 203452.g1schid 203457.g1schid 205488.g1schid
+               205490.g1schid 205491.g1schid 205492.g1schid 208501.g1schid
+               208503.g1schid 209510.g1schid 212522.g1schid 215533.g1schid
+               216537.g1schid 218562.g1schid 221571.g1schid 221574.g1schid
+               225585.g1schid 228606.g1schid 230612.g1schid 231616.g1schid
+               234628.g1schid 244697.g1schid 244708.g1schid 244723.g1schid
+               244727.g1schid 244728.g1schid 244736.g1schid 244745.g1schid
+               244746.g1schid 244755.g1schid 244764.g1schid 244774.g1schid
+               244776.g1schid 244780.g1schid 244796.g1schid 244799.g1schid
+               244801.g1schid 244806.g1schid 244831.g1schid 244839.g1schid
+               252885.g1schid 253888.g1schid 257899.g1schid 257905.g1schid
+               259915.g1schid 261927.g1schid 262937.g1schid 264945.g1schid
+               2.g1classtype 3.g1classtype
+note: 161176.g2schid identifies no observations in the sample
+note: 168211.g2schid identifies no observations in the sample
+note: 212522.g2schid identifies no observations in the sample
 
-                               (Std. Err. adjusted for 336 clusters in g1tchid)
--------------------------------------------------------------------------------
-              |               Robust
-        g1SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
---------------+----------------------------------------------------------------
-          g1s |   7.359554   1.180808     6.23   0.000      5.03682    9.682288
-         g1ra |   1.721391    .971283     1.77   0.077    -.1891911    3.631973
-   WhiteAsian |   6.950935   1.192983     5.83   0.000     4.604254    9.297616
-         girl |   3.818221   .5619747     6.79   0.000     2.712777    4.923665
-g1freelunch_2 |  -13.57698   .8719513   -15.57   0.000    -15.29217   -11.86179
-WhiteTeacher1 |  -4.245437   1.955536    -2.17   0.031    -8.092115   -.3987596
- MaleTeacher1 |   11.59697   3.325601     3.49   0.001     5.055284    18.13867
-     g1tyears |   .0525417   .0598281     0.88   0.380    -.0651445    .1702279
-         g1md |   .5008849   1.068499     0.47   0.640    -1.600928    2.602698
-        _cons |   52.23577    2.38754    21.88   0.000     47.53931    56.93223
--------------------------------------------------------------------------------
-
-
-Linear regression, absorbing indicators         Number of obs     =      5,953
-Absorbed variable: g2schid                      No. of categories =         72
-                                                F(   9,    319)   =      54.18
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.2779
-                                                Adj R-squared     =     0.2680
-                                                Root MSE          =    22.5762
+Instrumental variables (2SLS) regression          Number of obs   =      5,953
+                                                  Wald chi2(79)   =    4364.43
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.2780
+                                                  Root MSE        =     22.419
 
                                (Std. Err. adjusted for 320 clusters in g2tchid)
 -------------------------------------------------------------------------------
               |               Robust
-        g2SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+        g2SAT |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
 --------------+----------------------------------------------------------------
-          g2s |   5.757474   1.233368     4.67   0.000     3.330911    8.184037
-         g2ra |   1.535464   1.067409     1.44   0.151     -.564586    3.635514
-   WhiteAsian |   6.417809   1.189745     5.39   0.000     4.077071    8.758547
-         girl |   3.420671   .6000316     5.70   0.000     2.240151     4.60119
-g2freelunch_2 |  -13.59966   .7185623   -18.93   0.000    -15.01338   -12.18594
-WhiteTeacher2 |   .4483446     1.7506     0.26   0.798    -2.995835    3.892525
- MaleTeacher2 |   1.239137   3.979461     0.31   0.756    -6.590168    9.068442
-     g2tyears |   .0982327   .0647433     1.52   0.130    -.0291452    .2256106
-         g2md |  -1.126226   1.064402    -1.06   0.291     -3.22036    .9679089
-        _cons |    48.9549   2.224378    22.01   0.000      44.5786     53.3312
+  g2classsize |  -.6141108   .1308564    -4.69   0.000    -.8705847    -.357637
+   WhiteAsian |   6.561099   1.172402     5.60   0.000     4.263234    8.858964
+         girl |   3.446465   .5968386     5.77   0.000     2.276683    4.616247
+g2freelunch_2 |  -13.56499   .7177985   -18.90   0.000    -14.97185   -12.15813
+WhiteTeacher2 |   .3844512   1.742345     0.22   0.825    -3.030482    3.799384
+ MaleTeacher2 |   2.362259    4.26191     0.55   0.579     -5.99093    10.71545
+     g2tyears |   .0891036   .0647867     1.38   0.169    -.0378761    .2160833
+         g2md |  -.7876234   1.051083    -0.75   0.454    -2.847707    1.272461
+              |
+      g2schid |
+      123056  |   .1413729   4.929931     0.03   0.977    -9.521114     9.80386
+      128076  |   6.835963   4.945707     1.38   0.167    -2.857445    16.52937
+      128079  |  -3.980293   4.293588    -0.93   0.354    -12.39557    4.434986
+      130085  |   17.51539    1.37381    12.75   0.000     14.82277      20.208
+      159171  |     6.9937   2.231107     3.13   0.002      2.62081    11.36659
+      161176  |          0  (empty)
+      161183  |   23.56388   3.329869     7.08   0.000     17.03745     30.0903
+      162184  |   18.20445   5.932268     3.07   0.002     6.577414    29.83148
+      164198  |   2.648641   1.898263     1.40   0.163    -1.071886    6.369168
+      165199  |   16.24789   1.779394     9.13   0.000     12.76035    19.73544
+      166203  |    9.07672   5.421461     1.67   0.094    -1.549149    19.70259
+      168211  |          0  (empty)
+      168214  |   15.05849    2.13294     7.06   0.000       10.878    19.23897
+      169219  |  -.3610698   6.140791    -0.06   0.953     -12.3968    11.67466
+      169229  |    5.39883   2.542087     2.12   0.034     .4164309    10.38123
+      169231  |  -2.838469   5.039772    -0.56   0.573    -12.71624    7.039302
+      169280  |   9.782315   2.546818     3.84   0.000     4.790643    14.77399
+      170295  |    14.2051   3.944795     3.60   0.000     6.473446    21.93676
+      173312  |   20.46038   1.981637    10.32   0.000     16.57644    24.34432
+      176329  |    3.70479   3.573734     1.04   0.300    -3.299599    10.70918
+      189378  |   2.867375   2.661803     1.08   0.281    -2.349663    8.084414
+      189382  |   1.049139   4.341928     0.24   0.809    -7.460882    9.559161
+      189396  |   13.24137   2.899209     4.57   0.000     7.559027    18.92372
+      191411  |   15.68631   4.810248     3.26   0.001     6.258395    25.11422
+      193422  |   1.992088   5.189745     0.38   0.701    -8.179626     12.1638
+      193423  |  -5.397422   4.364204    -1.24   0.216     -13.9511    3.156261
+      201449  |   12.70951   2.804103     4.53   0.000     7.213573    18.20545
+      203452  |   6.510089   2.966815     2.19   0.028     .6952382    12.32494
+      203457  |   9.847101   3.778083     2.61   0.009     2.442194    17.25201
+      205488  |  -3.689583   1.781474    -2.07   0.038    -7.181209   -.1979579
+      205490  |   5.289675   1.747885     3.03   0.002     1.863884    8.715466
+      205491  |   5.807517   3.069123     1.89   0.058    -.2078533    11.82289
+      205492  |  -5.602673    8.07005    -0.69   0.488    -21.41968    10.21433
+      208501  |    9.11682   2.951853     3.09   0.002     3.331295    14.90235
+      208503  |   12.77988   3.109848     4.11   0.000     6.684686    18.87507
+      209510  |   11.66912   2.595339     4.50   0.000     6.582349    16.75589
+      212522  |          0  (empty)
+      215533  |   2.036171    2.96294     0.69   0.492    -3.771085    7.843428
+      216537  |   13.42073   2.075811     6.47   0.000     9.352212    17.48924
+      218562  |   8.032327   3.993527     2.01   0.044     .2051578     15.8595
+      221571  |   2.364852   3.820876     0.62   0.536    -5.123928    9.853633
+      221574  |   -5.41259   3.117772    -1.74   0.083    -11.52331    .6981317
+      225585  |  -7.876442   2.645805    -2.98   0.003    -13.06212    -2.69076
+      228606  |   19.30604   3.218839     6.00   0.000     12.99723    25.61485
+      230612  |   .0734579   3.428373     0.02   0.983    -6.646029    6.792945
+      231616  |   20.89768    4.99993     4.18   0.000       11.098    30.69736
+      234628  |   9.276929   6.075615     1.53   0.127    -2.631057    21.18491
+      244697  |   3.500368   4.391501     0.80   0.425    -5.106816    12.10755
+      244708  |  -.3706475    4.93466    -0.08   0.940     -10.0424    9.301108
+      244723  |  -.1261848   4.863744    -0.03   0.979    -9.658948    9.406578
+      244727  |   .0139685   5.215607     0.00   0.998    -10.20843    10.23637
+      244728  |  -12.29692   2.294302    -5.36   0.000    -16.79367    -7.80017
+      244736  |  -10.53938   2.923899    -3.60   0.000    -16.27012   -4.808645
+      244745  |   -5.85869   3.312255    -1.77   0.077    -12.35059     .633211
+      244746  |   7.212404   5.897128     1.22   0.221    -4.345754    18.77056
+      244755  |  -1.818343   3.449058    -0.53   0.598    -8.578372    4.941686
+      244764  |    12.7792   3.282388     3.89   0.000      6.34584    19.21256
+      244774  |  -11.65783   2.858845    -4.08   0.000    -17.26107   -6.054601
+      244776  |   .9640252   4.582889     0.21   0.833    -8.018273    9.946324
+      244780  |  -4.089667   4.108409    -1.00   0.320      -12.142    3.962667
+      244796  |  -.1393174   2.493167    -0.06   0.955    -5.025834    4.747199
+      244799  |  -6.730474   3.986164    -1.69   0.091    -14.54321    1.082263
+      244801  |  -5.935619   3.265102    -1.82   0.069     -12.3351    .4638638
+      244806  |   8.844103   3.422125     2.58   0.010     2.136862    15.55134
+      244831  |   3.596895    4.86654     0.74   0.460    -5.941348    13.13514
+      244839  |   10.81784   5.225762     2.07   0.038     .5755316    21.06014
+      252885  |   12.52023   2.508996     4.99   0.000     7.602686    17.43777
+      253888  |   1.648267   2.848082     0.58   0.563    -3.933872    7.230405
+      257899  |   9.062234   4.926514     1.84   0.066    -.5935565    18.71802
+      257905  |   7.210116   4.114577     1.75   0.080    -.8543076    15.27454
+      259915  |  -5.425078   5.993604    -0.91   0.365    -17.17233     6.32217
+      261927  |   9.411652    1.80085     5.23   0.000      5.88205    12.94125
+      262937  |   17.99799    1.51489    11.88   0.000     15.02886    20.96712
+      264945  |   1.806317   3.081371     0.59   0.558    -4.233059    7.845694
+              |
+        _cons |   58.91722   4.087545    14.41   0.000     50.90578    66.92866
 -------------------------------------------------------------------------------
+Instrumented:  g2classsize
+Instruments:   WhiteAsian girl g2freelunch_2 WhiteTeacher2 MaleTeacher2
+               g2tyears g2md 123056.g2schid 128076.g2schid 128079.g2schid
+               130085.g2schid 159171.g2schid 161183.g2schid 162184.g2schid
+               164198.g2schid 165199.g2schid 166203.g2schid 168214.g2schid
+               169219.g2schid 169229.g2schid 169231.g2schid 169280.g2schid
+               170295.g2schid 173312.g2schid 176329.g2schid 189378.g2schid
+               189382.g2schid 189396.g2schid 191411.g2schid 193422.g2schid
+               193423.g2schid 201449.g2schid 203452.g2schid 203457.g2schid
+               205488.g2schid 205490.g2schid 205491.g2schid 205492.g2schid
+               208501.g2schid 208503.g2schid 209510.g2schid 215533.g2schid
+               216537.g2schid 218562.g2schid 221571.g2schid 221574.g2schid
+               225585.g2schid 228606.g2schid 230612.g2schid 231616.g2schid
+               234628.g2schid 244697.g2schid 244708.g2schid 244723.g2schid
+               244727.g2schid 244728.g2schid 244736.g2schid 244745.g2schid
+               244746.g2schid 244755.g2schid 244764.g2schid 244774.g2schid
+               244776.g2schid 244780.g2schid 244796.g2schid 244799.g2schid
+               244801.g2schid 244806.g2schid 244831.g2schid 244839.g2schid
+               252885.g2schid 253888.g2schid 257899.g2schid 257905.g2schid
+               259915.g2schid 261927.g2schid 262937.g2schid 264945.g2schid
+               2.g2classtype 3.g2classtype
+note: 230612.g3schid identifies no observations in the sample
 
-
-Linear regression, absorbing indicators         Number of obs     =      6,100
-Absorbed variable: g3schid                      No. of categories =         74
-                                                F(   9,    322)   =      43.40
-                                                Prob > F          =     0.0000
-                                                R-squared         =     0.2219
-                                                Adj R-squared     =     0.2113
-                                                Root MSE          =    23.9622
+Instrumental variables (2SLS) regression          Number of obs   =      6,100
+                                                  Wald chi2(81)   =    2788.41
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.2208
+                                                  Root MSE        =      23.82
 
                                (Std. Err. adjusted for 323 clusters in g3tchid)
 -------------------------------------------------------------------------------
               |               Robust
-        g3SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+        g3SAT |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
 --------------+----------------------------------------------------------------
-          g3s |   4.893551   1.204229     4.06   0.000     2.524401    7.262702
-         g3ra |  -.7649333   1.072435    -0.71   0.476    -2.874797     1.34493
-   WhiteAsian |   6.044918   1.441799     4.19   0.000     3.208382    8.881455
-         girl |   4.191234   .6543586     6.41   0.000     2.903876    5.478592
-g3freelunch_2 |   -12.9277   .8113021   -15.93   0.000    -14.52382   -11.33158
-WhiteTeacher3 |   .5767836    1.75553     0.33   0.743    -2.876973    4.030541
- MaleTeacher3 |  -7.430136    2.81688    -2.64   0.009    -12.97195   -1.888323
-     g3tyears |   .0358311   .0632071     0.57   0.571      -.08852    .1601822
-         g3md |   1.056989   1.155821     0.91   0.361    -1.216926    3.330904
-        _cons |   49.22032   2.450575    20.09   0.000     44.39916    54.04148
+  g3classsize |  -.6624534   .1289474    -5.14   0.000    -.9151856   -.4097213
+   WhiteAsian |    6.01106   1.433074     4.19   0.000     3.202287    8.819832
+         girl |   4.210581   .6500222     6.48   0.000     2.936561    5.484601
+g3freelunch_2 |  -12.93089   .8058047   -16.05   0.000    -14.51024   -11.35154
+WhiteTeacher3 |   .4759897   1.747555     0.27   0.785    -2.949156    3.901135
+ MaleTeacher3 |  -7.148063   2.889387    -2.47   0.013    -12.81116   -1.484968
+     g3tyears |   .0345389   .0642051     0.54   0.591    -.0913008    .1603785
+         g3md |   1.125343   1.160652     0.97   0.332    -1.149493     3.40018
+              |
+      g3schid |
+      123056  |   5.226921   6.005279     0.87   0.384     -6.54321    16.99705
+      128076  |  -2.138975   4.890867    -0.44   0.662     -11.7249    7.446948
+      128079  |  -10.78557   4.854459    -2.22   0.026    -20.30013   -1.271006
+      130085  |   12.68593   5.572805     2.28   0.023     1.763427    23.60842
+      159171  |   2.040343   5.457429     0.37   0.709    -8.656021    12.73671
+      161176  |   1.614686   4.854556     0.33   0.739    -7.900069    11.12944
+      161183  |   4.253703    5.35269     0.79   0.427    -6.237377    14.74478
+      162184  |   1.213494   5.955483     0.20   0.839    -10.45904    12.88603
+      164198  |  -6.339528   4.452878    -1.42   0.155    -15.06701    2.387952
+      165199  |   8.503154   6.422834     1.32   0.186    -4.085369    21.09168
+      166203  |   2.490895   7.705971     0.32   0.747    -12.61253    17.59432
+      168211  |   4.793785   4.576607     1.05   0.295      -4.1762    13.76377
+      168214  |   11.77024   4.792189     2.46   0.014     2.377719    21.16276
+      169219  |   5.596686   5.680188     0.99   0.324    -5.536278    16.72965
+      169229  |   1.032688   4.845337     0.21   0.831    -8.463998    10.52938
+      169231  |  -7.577651   4.746624    -1.60   0.110    -16.88086    1.725562
+      169280  |  -1.358851   5.068321    -0.27   0.789    -11.29258    8.574876
+      170295  |   4.041544   6.417177     0.63   0.529     -8.53589    16.61898
+      173312  |   6.900054   4.295595     1.61   0.108    -1.519158    15.31927
+      176329  |  -2.645612   4.201633    -0.63   0.529    -10.88066    5.589437
+      189378  |   4.993908     4.7104     1.06   0.289    -4.238307    14.22612
+      189382  |   3.387222   5.751259     0.59   0.556    -7.885039    14.65948
+      189396  |  -2.692949   5.415312    -0.50   0.619    -13.30677    7.920868
+      191411  |   -3.72536   7.122132    -0.52   0.601    -17.68448    10.23376
+      193422  |  -2.105765   5.915341    -0.36   0.722    -13.69962     9.48809
+      193423  |  -4.479134   6.013576    -0.74   0.456    -16.26553    7.307259
+      201449  |   3.324329   4.206553     0.79   0.429    -4.920363    11.56902
+      203452  |  -.5123685   4.270713    -0.12   0.905    -8.882812    7.858075
+      203457  |   12.10606    5.66286     2.14   0.033     1.007056    23.20506
+      205488  |   3.965526    4.34485     0.91   0.361    -4.550224    12.48128
+      205490  |    7.17677   7.024364     1.02   0.307    -6.590731    20.94427
+      205491  |    8.23864   4.611601     1.79   0.074    -.7999327    17.27721
+      205492  |  -18.87982   4.865595    -3.88   0.000    -28.41622   -9.343433
+      208501  |    14.9658   4.199279     3.56   0.000     6.735365    23.19623
+      208503  |   8.803766   6.079638     1.45   0.148    -3.112105    20.71964
+      209510  |    14.8465    4.88711     3.04   0.002     5.267936    24.42506
+      212522  |  -7.454605   5.830943    -1.28   0.201    -18.88304    3.973834
+      215533  |   .7942307   5.300623     0.15   0.881    -9.594799    11.18326
+      216537  |   .6019993   5.098391     0.12   0.906    -9.390664    10.59466
+      218562  |   4.386165   5.833846     0.75   0.452    -7.047962    15.82029
+      221571  |  -.7482157   4.799435    -0.16   0.876    -10.15494    8.658504
+      221574  |   -2.53674   5.604514    -0.45   0.651    -13.52139    8.447905
+      225585  |  -9.895822   4.147567    -2.39   0.017     -18.0249    -1.76674
+      228606  |   13.94338   4.895212     2.85   0.004     4.348941    23.53782
+      230612  |          0  (empty)
+      231616  |   20.85098   6.630207     3.14   0.002     7.856017    33.84595
+      234628  |  -.5600502   4.264736    -0.13   0.896     -8.91878    7.798679
+      244697  |  -3.233687   6.740645    -0.48   0.631    -16.44511    9.977734
+      244708  |  -11.04957    5.25396    -2.10   0.035    -21.34714   -.7519961
+      244723  |   1.255654   7.462022     0.17   0.866    -13.36964    15.88095
+      244727  |   2.311192   5.173495     0.45   0.655    -7.828672    12.45106
+      244728  |  -11.41588   4.197384    -2.72   0.007     -19.6426   -3.189156
+      244736  |   -9.30538   6.716522    -1.39   0.166    -22.46952    3.858761
+      244745  |   -12.1115    5.05313    -2.40   0.017    -22.01545   -2.207546
+      244746  |   5.608838   7.660278     0.73   0.464    -9.405031    20.62271
+      244755  |  -5.761634   6.200932    -0.93   0.353    -17.91524     6.39197
+      244764  |   5.325347   4.259606     1.25   0.211    -3.023328    13.67402
+      244774  |  -10.44823   5.647025    -1.85   0.064     -21.5162    .6197327
+      244776  |   5.406878   9.923324     0.54   0.586    -14.04248    24.85624
+      244780  |   1.246416   6.793535     0.18   0.854    -12.06867     14.5615
+      244796  |  -6.193357   4.946058    -1.25   0.211    -15.88745    3.500739
+      244799  |   8.304229   6.899565     1.20   0.229     -5.21867    21.82713
+      244801  |  -.8357998    8.68669    -0.10   0.923     -17.8614     16.1898
+      244806  |  -4.084466   4.870235    -0.84   0.402    -13.62995    5.461019
+      244831  |  -.8728053   5.646874    -0.15   0.877    -11.94048    10.19486
+      244839  |   3.340798   6.423055     0.52   0.603    -9.248159    15.92976
+      252885  |  -10.16625   6.150066    -1.65   0.098    -22.22015    1.887661
+      253888  |   .9899599   4.866642     0.20   0.839    -8.548483     10.5284
+      257899  |    6.17147   5.197938     1.19   0.235    -4.016301    16.35924
+      257905  |   3.497025     4.4789     0.78   0.435    -5.281458    12.27551
+      259915  |  -3.152706   4.359394    -0.72   0.470    -11.69696    5.391549
+      261927  |   1.013834   4.238669     0.24   0.811    -7.293805    9.321474
+      262937  |    13.3376   4.864673     2.74   0.006     3.803021    22.87219
+      264945  |  -1.471374     4.4228    -0.33   0.739     -10.1399    7.197155
+              |
+        _cons |   63.80546   5.523257    11.55   0.000     52.98007    74.63084
 -------------------------------------------------------------------------------
+Instrumented:  g3classsize
+Instruments:   WhiteAsian girl g3freelunch_2 WhiteTeacher3 MaleTeacher3
+               g3tyears g3md 123056.g3schid 128076.g3schid 128079.g3schid
+               130085.g3schid 159171.g3schid 161176.g3schid 161183.g3schid
+               162184.g3schid 164198.g3schid 165199.g3schid 166203.g3schid
+               168211.g3schid 168214.g3schid 169219.g3schid 169229.g3schid
+               169231.g3schid 169280.g3schid 170295.g3schid 173312.g3schid
+               176329.g3schid 189378.g3schid 189382.g3schid 189396.g3schid
+               191411.g3schid 193422.g3schid 193423.g3schid 201449.g3schid
+               203452.g3schid 203457.g3schid 205488.g3schid 205490.g3schid
+               205491.g3schid 205492.g3schid 208501.g3schid 208503.g3schid
+               209510.g3schid 212522.g3schid 215533.g3schid 216537.g3schid
+               218562.g3schid 221571.g3schid 221574.g3schid 225585.g3schid
+               228606.g3schid 231616.g3schid 234628.g3schid 244697.g3schid
+               244708.g3schid 244723.g3schid 244727.g3schid 244728.g3schid
+               244736.g3schid 244745.g3schid 244746.g3schid 244755.g3schid
+               244764.g3schid 244774.g3schid 244776.g3schid 244780.g3schid
+               244796.g3schid 244799.g3schid 244801.g3schid 244806.g3schid
+               244831.g3schid 244839.g3schid 252885.g3schid 253888.g3schid
+               257899.g3schid 257905.g3schid 259915.g3schid 261927.g3schid
+               262937.g3schid 264945.g3schid 2.g3classtype 3.g3classtype
 
-
-. 
-. forvalues i == 0/3 {
-  2.         est2tex table5`i', replace preserve path() mark(stars) levels(90 95 99) flexible(
-> 2) fancy label plain() thousep
-  3. } 
-matrix table50_tbl.dta saved
-TeX file table50.tex saved
-matrix table51_tbl.dta saved
-TeX file table51.tex saved
-matrix table52_tbl.dta saved
-TeX file table52.tex saved
-matrix table53_tbl.dta saved
-TeX file table53.tex saved
-
-. 
-. 
-. 
-. 
-. /*
-> capture estimates drop *
-> 
-> forvalues i == 0/3 {
->         reg g`i'SAT g`i's g`i'ra, vce(cluster g`i'tchid) 
->         estimates store t51
->         
->         reg g`i'SAT g`i's g`i'ra, vce(cluster g`i'tchid) absorb(g`i'schid)
->         estimates store t52
->         
->         areg g`i'SAT g`i's g`i'ra  WhiteAsian girl g`i'freelunch_2, vce(cluster g`i'tchid) a
-> bsorb(g`i'schid)
->         estimates store t53
->         
->         areg g`i'SAT g`i's g`i'ra WhiteAsian girl g`i'freelunch_2 WhiteTeacher`i' MaleTeache
-> r`i' g`i'tyears g`i'md, vce(cluster g`i'tchid) absorb(g`i'schid)
->         estimates store t54
-> } 
-> */
-. 
-. 
-. 
-. 
-. 
-. 
-. 
-. 
-. * Reduced Form - Initial Class Size -- Class size from first appearance in TNSTAR; Outcome i
-> s average SAT percentile;  Four specifications 
-. 
-.         * 5. Small Class, Regular/Aide class, no school FE
-. *forvalues i == 0/3 {
-. *       reg g`i'SAT g`i's g`i'ra vce(cluster g`i'tchid) 
-. *}              
-.         * 6. Small Class, Regular/Aide class, school FE
-.         
-.         * 7. Small Class, Regular/Aide class, White/Asian, Girl, Free Lunch, school FE
-.         
-.         * 8. Small Class, Regular/Aide class, White/Asian, Girl, Free Lunch, White Teacher, 
-> Teacher Experience, Master's Degree, school FE
-.         
-.  
-.  
-.  
-.  
-.  
-. ******************************************************
-. * Table 7 
-. * OLS and 2SLS Estimates of Effect of Class Size on Achievement. 
-. * Dependent Variable: Average Percentile Score on SAT.
-. 
-. * Reported Coefficient is for actual number of students in each class. 
-. * All models control for: school fixed effects, student's race, gender, free lunch, teacher 
-> race/experience/education.
-. * Cluster standard errors by class
-. 
-. 
-. 
-. *************
-. * Storing looped results: 
-. * tempname myresults 
-. * postfile 'myresults' x beta se using myresults.dta, replace  ( x and beta are columns)
-. * forvalues 2/80 {
-. *      reg lfkjslkdfksdf
-. * post `myresults`i'' (`=_b[w]') 
-. * another line???} 
-. *postclose 'myresults'
-. 
 . 
 end of do-file
+
+. do "C:\Users\mreuther\AppData\Local\Temp\12\STD23a4_000000.tmp"
+
+. forvalues i == 0/3 {
+  2.         areg g`i'SAT g`i'classsize WhiteAsian girl g`i'freelunch_2 WhiteT
+> eacher`i' MaleTeacher`i' g`i'tyears g`i'md, vce(cluster g`i'tchid) absorb(g`
+> i'schid)
+  3.         *est2vec table7`i', addto(table5`i') name(Col4`i')
+. } 
+note: MaleTeacher0 omitted because of collinearity
+
+Linear regression, absorbing indicators         Number of obs     =      5,839
+Absorbed variable: g0schid                      No. of categories =         79
+                                                F(   7,    322)   =      59.46
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.3072
+                                                Adj R-squared     =     0.2969
+                                                Root MSE          =    22.3773
+
+                              (Std. Err. adjusted for 323 clusters in g0tchid)
+------------------------------------------------------------------------------
+             |               Robust
+       g0SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ g0classsize |   -.613595   .1384651    -4.43   0.000    -.8860056   -.3411845
+  WhiteAsian |    8.29575   1.366371     6.07   0.000     5.607609    10.98389
+        girl |   4.352312   .6330071     6.88   0.000      3.10696    5.597664
+g0freelunc~2 |  -13.08221   .7777652   -16.82   0.000    -14.61235   -11.55207
+WhiteTeach~0 |  -.8511711   2.223135    -0.38   0.702    -5.224876    3.522534
+MaleTeacher0 |          0  (omitted)
+    g0tyears |    .272418    .106032     2.57   0.011      .063815     .481021
+        g0md |  -.8131122   1.057767    -0.77   0.443    -2.894119    1.267895
+       _cons |   61.00404   3.884211    15.71   0.000     53.36241    68.64568
+------------------------------------------------------------------------------
+
+Linear regression, absorbing indicators         Number of obs     =      6,452
+Absorbed variable: g1schid                      No. of categories =         76
+                                                F(   8,    335)   =      59.42
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.2986
+                                                Adj R-squared     =     0.2895
+                                                Root MSE          =    22.6424
+
+                              (Std. Err. adjusted for 336 clusters in g1tchid)
+------------------------------------------------------------------------------
+             |               Robust
+       g1SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ g1classsize |  -.8201982   .1327988    -6.18   0.000    -1.081423   -.5589736
+  WhiteAsian |   7.040842   1.195191     5.89   0.000     4.689816    9.391867
+        girl |   3.860053   .5640393     6.84   0.000     2.750548    4.969558
+g1freelunc~2 |   -13.5844   .8732449   -15.56   0.000    -15.30214   -11.86667
+WhiteTeach~1 |  -4.524205   1.976936    -2.29   0.023    -8.412977   -.6354327
+MaleTeacher1 |    11.4153   2.767564     4.12   0.000     5.971306    16.85929
+    g1tyears |   .0708078     .05988     1.18   0.238    -.0469804    .1885959
+        g1md |   .4815408   1.077374     0.45   0.655    -1.637729    2.600811
+       _cons |     71.994   3.299442    21.82   0.000     65.50376    78.48423
+------------------------------------------------------------------------------
+
+Linear regression, absorbing indicators         Number of obs     =      5,953
+Absorbed variable: g2schid                      No. of categories =         72
+                                                F(   8,    319)   =      59.73
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.2780
+                                                Adj R-squared     =     0.2683
+                                                Root MSE          =    22.5712
+
+                              (Std. Err. adjusted for 320 clusters in g2tchid)
+------------------------------------------------------------------------------
+             |               Robust
+       g2SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ g2classsize |  -.6006894   .1263678    -4.75   0.000    -.8493091   -.3520697
+  WhiteAsian |   6.559537    1.18273     5.55   0.000       4.2326    8.886473
+        girl |   3.446602   .6018535     5.73   0.000     2.262498    4.630705
+g2freelunc~2 |  -13.56895   .7230999   -18.76   0.000     -14.9916    -12.1463
+WhiteTeach~2 |   .3869516   1.757151     0.22   0.826    -3.070117     3.84402
+MaleTeacher2 |   2.294478   4.291018     0.53   0.593    -6.147793    10.73675
+    g2tyears |   .0894618   .0653208     1.37   0.172    -.0390521    .2179757
+        g2md |  -.7962052   1.057171    -0.75   0.452    -2.876113    1.283703
+       _cons |   63.73341   3.451212    18.47   0.000      56.9434    70.52342
+------------------------------------------------------------------------------
+
+Linear regression, absorbing indicators         Number of obs     =      6,100
+Absorbed variable: g3schid                      No. of categories =         74
+                                                F(   8,    322)   =      48.34
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.2209
+                                                Adj R-squared     =     0.2104
+                                                Root MSE          =    23.9810
+
+                              (Std. Err. adjusted for 323 clusters in g3tchid)
+------------------------------------------------------------------------------
+             |               Robust
+       g3SAT |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ g3classsize |  -.6006791   .1271111    -4.73   0.000    -.8507522    -.350606
+  WhiteAsian |   6.006257    1.44224     4.16   0.000     3.168853    8.843661
+        girl |   4.215682   .6554659     6.43   0.000     2.926146    5.505218
+g3freelunc~2 |  -12.94893   .8111122   -15.96   0.000    -14.54468   -11.35319
+WhiteTeach~3 |   .4216789   1.756591     0.24   0.810    -3.034165    3.877523
+MaleTeacher3 |  -7.151022   2.909481    -2.46   0.015    -12.87501   -1.427029
+    g3tyears |   .0324121   .0643878     0.50   0.615    -.0942618     .159086
+        g3md |   1.045425   1.170234     0.89   0.372    -1.256845    3.347696
+       _cons |   63.41523    3.31157    19.15   0.000     56.90018    69.93027
+------------------------------------------------------------------------------
+
+. 
+end of do-file
+
+. do "C:\Users\mreuther\AppData\Local\Temp\12\STD23a4_000000.tmp"
+
+. ssc install est2tex, replace
+checking est2tex consistency and verifying not already installed...
+installing into c:\ado\plus\...
+file c:\ado\plus\next.trk already exists
+r(602);
+
+end of do-file
+
+r(602);
 

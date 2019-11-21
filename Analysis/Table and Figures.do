@@ -2,6 +2,7 @@ clear all
 capture log close 
 set more off 
 
+ssc install est2tex, replace
 
 cd "//Client/C$/Users/maris/Dropbox/Grad/582 - Metrics I/ECON-582---Krueger-Replication/"
 set logtype text
@@ -208,7 +209,7 @@ graph export "./Output/figure1_`n'.png", replace
 * All models cluster standard errors by class (gktchid is teacher ID within that grade so will indicate the class).
 
 * OLS - Actual Class Size; Outcome is average SAT percentile; Four specifications 
-ssc install  est2tex, replace
+
 	* Column 1 for each panel. Small Class, Regular/Aide class, no school FE. 
 	* Not perfect, but good enough for now to move on. Within the ballpark
 forvalues i == 0/3 {
@@ -268,6 +269,8 @@ forvalues i == 0/3 {
 
 * Reduced Form - Initial Class Size -- Class size from first appearance in TNSTAR; Outcome is average SAT percentile;  Four specifications 
 
+*** Create dummies indicating the students' initial assignment the first year they entered the program, rather then their actual assignment each year.
+
 	* 5. Small Class, Regular/Aide class, no school FE
 *forvalues i == 0/3 {
 *	reg g`i'SAT g`i's g`i'ra vce(cluster g`i'tchid) 
@@ -292,7 +295,16 @@ forvalues i == 0/3 {
 * All models control for: school fixed effects, student's race, gender, free lunch, teacher race/experience/education.
 * Cluster standard errors by class
 
+forvalues i == 0/3 {
+	areg g`i'SAT g`i'classsize WhiteAsian girl g`i'freelunch_2 WhiteTeacher`i' MaleTeacher`i' g`i'tyears g`i'md, vce(cluster g`i'tchid) absorb(g`i'schid)
+	est2vec table7`i', addto(table7`i') name(Col4`i')
+} 
 
+
+forvalues i == 0/3 {
+	ivregress 2sls g`i'SAT (g`i'classsize=i.g`i'classtype) WhiteAsian girl g`i'freelunch_2 WhiteTeacher`i' MaleTeacher`i' g`i'tyears g`i'md i.g`i'schid, vce(cluster g`i'tchid) 
+	est2vec table7`i', addto(table7`i') name(Col4`i')
+} 
 
 *************
 * Storing looped results: 
