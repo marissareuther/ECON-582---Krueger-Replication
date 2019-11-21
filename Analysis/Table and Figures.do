@@ -214,29 +214,30 @@ graph export "./Output/figure1_`n'.png", replace
 	* Not perfect, but good enough for now to move on. Within the ballpark
 forvalues i == 0/3 {
 	reg g`i'SAT g`i's g`i'ra, vce(cluster g`i'tchid) 
-	est2vec table5`i', replace vars(g`i'SAT g`i's g`i'ra WhiteAsian girl g`i'freelunch_2 WhiteTeacher`i' MaleTeacher`i' g`i'tyears g`i'md) e(r2`i') name(Col1`i')
+	est2vec table5a`i', replace vars(g`i'SAT g`i's g`i'ra WhiteAsian girl g`i'freelunch_2 WhiteTeacher`i' MaleTeacher`i' g`i'tyears g`i'md) e(r2`i') name(Col1`i')
 } 
 	* 2. Small Class, Regular/Aide class, school FE
 	* Not perfect, still mostly ballpark
 forvalues i == 0/3 {
     areg g`i'SAT g`i's g`i'ra, vce(cluster g`i'tchid) absorb(g`i'schid)  
-	est2vec table5`i', addto(table5`i') name(Col2`i')
+	est2vec table5a`i', addto(table5a`i') name(Col2`i')
 } 	
 	* 3. Small Class, Regular/Aide class, White/Asian, Girl, Free Lunch, school FE
 	* Not perfect, still mostly ballpark but its getting larger
 forvalues i == 0/3 {
 	areg g`i'SAT g`i's g`i'ra  WhiteAsian girl g`i'freelunch_2, vce(cluster g`i'tchid) absorb(g`i'schid)
-	est2vec table5`i', addto(table5`i') name(Col3`i')
+	est2vec table5a`i', addto(table5a`i') name(Col3`i')
 } 		
 	* 4. Small Class, Regular/Aide class, White/Asian, Girl, Free Lunch, White Teacher, Teacher Experience (gktyears), Teacher Male, Master's Degree, school FE
 	* Not perfect, still mostly ballpark of the size of column 3
 forvalues i == 0/3 {
 	areg g`i'SAT g`i's g`i'ra WhiteAsian girl g`i'freelunch_2 WhiteTeacher`i' MaleTeacher`i' g`i'tyears g`i'md, vce(cluster g`i'tchid) absorb(g`i'schid)
-	est2vec table5`i', addto(table5`i') name(Col4`i')
+	est2vec table5a`i', addto(table5a`i') name(Col4`i')
 } 	
 
+
 forvalues i == 0/3 {
-	est2tex table5`i', replace preserve path() mark(stars) levels(90 95 99) flexible(2) fancy label plain() thousep
+	est2tex table5a`i', replace preserve path() mark(stars) levels(90 95 99) flexible(2) fancy label plain() thousep
 } 
 
 
@@ -265,21 +266,57 @@ forvalues i == 0/3 {
 
 
 
+***************************
+* Go back change up gradeenter to make it into four separate variables. 
+* Rerun Table 5a making conditional on gradeenter and check out observations. 
+************************************
+
+
+
+
+
 
 
 * Reduced Form - Initial Class Size -- Class size from first appearance in TNSTAR; Outcome is average SAT percentile;  Four specifications 
 
 *** Create dummies indicating the students' initial assignment the first year they entered the program, rather then their actual assignment each year.
+gen fyclasstype = .
+forvalues i == 0/3 {
+
+replace fyclasstype = g`i'classtype if gradeenter == `i'
+}
+
+
+/* Need to add in first year they entered the program!!!!!!!
+
+forvalues i == 0/3{
+	gen g`i'is = 1 if g`i'classtype==1 
+	replace g`i'is = 0 if g`i'is == . & g`i'classtype != .
+
+	gen g`i'ir = 1 if g`i'classtype==2
+	replace g`i'ir = 0 if g`i'ir == . & g`i'classtype != .
+
+	gen g`i'ira = 1 if g`i'classtype==3
+	replace g`i'ira = 0 if g`i'ira == . & g`i'classtype !=  .
+}
+*/
+
 
 	* 5. Small Class, Regular/Aide class, no school FE
-*forvalues i == 0/3 {
-*	reg g`i'SAT g`i's g`i'ra vce(cluster g`i'tchid) 
-*} 		
+forvalues i == 0/3 {
+	reg g`i'SAT ib(2).fyclasstype, vce(cluster g`i'tchid) 
+	est2vec table5a`i', replace vars(g`i'SAT g`i's g`i'ra WhiteAsian girl g`i'freelunch_2 WhiteTeacher`i' MaleTeacher`i' g`i'tyears g`i'md) e(r2`i') name(Col1`i')
+} 
+
 	* 6. Small Class, Regular/Aide class, school FE
 	
 	* 7. Small Class, Regular/Aide class, White/Asian, Girl, Free Lunch, school FE
 	
 	* 8. Small Class, Regular/Aide class, White/Asian, Girl, Free Lunch, White Teacher, Teacher Experience, Master's Degree, school FE
+forvalues i == 0/3 {
+	areg g`i'SAT ib(2).fyclasstype WhiteAsian girl g`i'freelunch_2 WhiteTeacher`i' MaleTeacher`i' g`i'tyears g`i'md, vce(cluster g`i'tchid) absorb(g`i'schid)
+	est2vec table5a`i', addto(table5a`i') name(Col4`i')
+} 	
 	
  
  
