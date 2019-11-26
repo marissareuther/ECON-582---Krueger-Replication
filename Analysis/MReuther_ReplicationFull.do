@@ -125,7 +125,7 @@ qui gen initials = 1 if fyclasstype==1
  qui replace initials = 0 if initials == . & fyclasstype != .
 
 qui gen initialra = 1 if fyclasstype==3
- qui replace initialra = 0 if initialra == . & fyclasstype !=  .
+ qui replace initialra = 0 if initialra == . & fyclasstype != .
  
 
 *save "./Output/Data/CleanData.dta", replace
@@ -162,11 +162,18 @@ forvalues i == 0/3 {
    
    outtable using "./Output/Table 1/Table1_`i'.tex", replace mat(g`i'means) nobox 
 	
+	matrix tab1pval_`i' = J(1 ,6 ,.) 
+	gen n=1
    	  foreach var of local g`i'list { 
-        
-	    qui mvtest means `var' if gradeenter == `i', by(g`i'classtype)	
+        mvtest means `var' if gradeenter == `i', by(g`i'classtype)	
+		
+		matrix tab1pval_`i'[1,n] = r(p_F)
+		replace n = n+1	
+		
 		}
+	drop n	
 }
+matrix list tab1pval_0
 
 matrix T1pval=(0.088, 0.518, 0.605, 0.038 \ 0.251, 0.000, 0.000, 0.003 \ 0.335, 0.033, 0.405, 0.498 \ 0.024, 0.069, 0.580, 0.000 \ 0.000, 0.000, 0.000, 0.000 \ 0.000, 0.000, 0.010, 0.006)  
 matrix rownames T1pval = "FreeLunch" "White/Asian" "Agein1985" "Attrition" "Class-Size" "Percentile"
@@ -222,7 +229,7 @@ outtable using "./Output/Table 3/Table3m.tex", replace mat(t3mean) nobox
 *II.d Figure 1 
 ********************************************************************************
 forvalues n=0/3 {
-	twoway kdensity g`n'SAT if (g`n'classtype==1)|| kdensity g`n'SAT if (g`n'classtype==2 | g`n'classtype==3), title("Average SAT Distributions for Grade `n'") ytitle("Density") xtitle("SAT Percentile") legend(label(1 "Small Class") label(2 "Regular Class")) lpattern("solid" "dash") scheme(s1color)
+	twoway kdensity g`n'SAT if (g`n'classtype==1) || kdensity g`n'SAT if (g`n'classtype==2 | g`n'classtype==3), title("Average SAT Distributions for Grade `n'") ytitle("Density") xtitle("SAT Percentile") legend(label(1 "Small Class") label(2 "Regular Class")) scheme(economist)
 	
 	graph export "./Output/Figure 1/figure1_`n'.png", replace
 }
@@ -292,9 +299,9 @@ forvalues i == 0/3 {
 } 	
 
 * Output OLS and Reduced table to latex. Have one table per grade. 	
-forvalues i == 0/3 {
-	est2tex table5b`i', replace preserve path("./Output/Table 5/") mark(stars) levels(90 95 99) flexible(2) fancy label leadzero thousep collabels("(1)" "(2)" "(3)" "(4)")
+forvalues i == 0/3 {.
 	est2tex table5a`i', replace preserve path("./Output/Table 5/") mark(stars) levels(90 95 99) flexible(2) fancy label leadzero thousep collabels("(1)" "(2)" "(3)" "(4)") 
+	est2tex table5b`i', replace preserve path("./Output/Table 5/") mark(stars) levels(90 95 99) flexible(2) fancy label leadzero thousep collabels("(1)" "(2)" "(3)" "(4)")
 } 
 
   

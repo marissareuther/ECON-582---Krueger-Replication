@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.8.23)  24 NOV 2019 16:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.8.23)  25 NOV 2019 11:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -301,77 +301,77 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
-
-Underfull \hbox (badness 10000) in paragraph at lines 34--35
-
- []
-
-[1
+ [1
 
 {c:/Users/maris/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
 x.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 41--42
+Underfull \hbox (badness 10000) in paragraph at lines 35--36
 
  []
 
 
-Overfull \hbox (14.78088pt too wide) in paragraph at lines 57--77
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
+
+ []
+
+
+Overfull \hbox (14.78088pt too wide) in paragraph at lines 58--78
  [] 
  []
 
 [2] [3]
-Overfull \hbox (8.06458pt too wide) in paragraph at lines 130--130
+Overfull \hbox (8.06458pt too wide) in paragraph at lines 131--131
  []|\OT1/cmr/m/n/10.95 Regular/Aide| 
  []
 
 <figure1_0.png, id=22, 695.59875pt x 505.89pt>
 File: figure1_0.png Graphic file (type png)
 <use figure1_0.png>
-Package pdftex.def Info: figure1_0.png  used on input line 162.
+Package pdftex.def Info: figure1_0.png  used on input line 163.
 (pdftex.def)             Requested size: 226.48395pt x 164.71335pt.
 <figure1_1.png, id=23, 695.59875pt x 505.89pt>
 File: figure1_1.png Graphic file (type png)
 <use figure1_1.png>
-Package pdftex.def Info: figure1_1.png  used on input line 165.
+Package pdftex.def Info: figure1_1.png  used on input line 166.
 (pdftex.def)             Requested size: 226.48395pt x 164.71335pt.
 
-Overfull \hbox (2.43333pt too wide) in paragraph at lines 161--167
+Overfull \hbox (2.43333pt too wide) in paragraph at lines 162--168
 []$[]$ $[]$ 
  []
 
 <figure1_2.png, id=24, 695.59875pt x 505.89pt>
 File: figure1_2.png Graphic file (type png)
 <use figure1_2.png>
-Package pdftex.def Info: figure1_2.png  used on input line 170.
+Package pdftex.def Info: figure1_2.png  used on input line 171.
 (pdftex.def)             Requested size: 226.48395pt x 164.71335pt.
 <figure1_3.png, id=25, 695.59875pt x 505.89pt>
 File: figure1_3.png Graphic file (type png)
 <use figure1_3.png>
-Package pdftex.def Info: figure1_3.png  used on input line 173.
+Package pdftex.def Info: figure1_3.png  used on input line 174.
 (pdftex.def)             Requested size: 226.48395pt x 164.71335pt.
 
-Overfull \hbox (2.43333pt too wide) in paragraph at lines 169--175
+Overfull \hbox (2.43333pt too wide) in paragraph at lines 170--176
 []$[]$ $[]$ 
  []
 
 [4] [5 <./figure1_0.png (PNG copy)> <./figure1_1.png (PNG copy)> <./figure1_2.p
 ng (PNG copy)> <./figure1_3.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 206--207
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 206--207
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
 
  []
 
 [6] [7] [8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 367--368
+Underfull \hbox (badness 10000) in paragraph at lines 368--369
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--368
+Underfull \hbox (badness 10000) in paragraph at lines 368--369
 
  []
 
@@ -399,8 +399,8 @@ ts/cm/cmr8.pfb><c:/Users/maris/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmr9.pfb><c:/Users/maris/AppData/Roaming/TinyTeX/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmsy6.pfb><c:/Users/maris/AppData/Roaming/TinyTeX
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on MReuther_KruegerReplicationStudy_ECON582.pdf (10 pages, 31378
-0 bytes).
+Output written on MReuther_KruegerReplicationStudy_ECON582.pdf (10 pages, 31379
+3 bytes).
 PDF statistics:
  89 PDF objects out of 1000 (max. 8388607)
  60 compressed objects within 1 object stream
