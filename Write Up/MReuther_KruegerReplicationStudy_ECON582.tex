@@ -15,7 +15,7 @@
 \maketitle
 
 \subsection*{I. Introduction}
-This paper replicates various results from Alan Krueger's paper\footnote{Krueger, A. (1999). Experimental Estimates of Education Production Functions. \textit{The Quarterly Journal of Economics}, 114(2), 497-532. Retrieved from www.jstor.org/stable/2587015}  studying the effects of class size on student achievement. In order to do this, Krueger studies the effects of the Tennessee Student/Teacher Achievement Ratio Experiment (Project STAR). This policy started in 1985 and randomly assigned students and teachers across 80 schools in Tennessee to small and regular class sizes. \par
+This paper replicates various results from Alan Krueger's paper\footnote{Krueger, A. (1999). Experimental Estimates of Education Production Functions. \textit{The Quarterly Journal of Economics}, 114(2), 497-532. Retrieved from www.jstor.org/stable/2587015}  studying the effects of class size on student achievement. In order to do this, Krueger studied the effects of the Tennessee Student/Teacher Achievement Ratio Experiment (Project STAR). This policy started in 1985 and randomly assigned both students and teachers across 80 schools in Tennessee to small and regular class sizes. \par
 
 The outcome of interest in Krueger’s study is student achievement level, which is  measured through student scores on two standardized tests (the Stanford Achievement
 Test (SAT) and the Tennessee Basic Skills First (BSF)). Studying the effects of these standardized test scores are important because they are a significant part of what dictates students’ future educational attainment, such as getting into better colleges and universities.  \par
@@ -24,96 +24,85 @@ Krueger studies several factors that could potentially affect student achievemen
 
 Krueger also analyzes the effects of some other independent variables such as teacher ability and whether a classroom had a full-time teacher aid present. These results do not appear to have much impact on test scores. \par
 
-To measure standardized test scores, Krueger creates an average percentile score based on the reading, math, and word skills tests. For his main analysis, he uses percentiles based only on SAT scores. Later in the paper, he alters the model by using percentiles only from BSF scores and did not find much difference in the results. In both the SAT and BSF scores, a higher percentile corresponds to a student with a higher achievement level. \par
+To measure standardized test scores, Krueger creates an average percentile score based on a student's raw scores for reading, math, and word skills tests. For his main analysis, he uses percentiles based only on SAT scores. Later in the paper, he alters the model by using percentiles only from BSF scores and did not find much difference in the results. In both the SAT and BSF scores, a higher percentile corresponds to a student with a higher achievement level. \par
 
-For class size in the main analysis, Krueger uses a categorical variable to describe the class size the student was randomly placed into each year. The three categories were small (13-17 students), regular (22-25 students) and regular/aid (22-25 students and a teacher aid).  \par
+For the first part of his analysis, Krueger uses a categorical variable to describe the class size the student was randomly placed into each year. The three categories were small (13-17 students), regular (22-25 students) and regular/aid (22-25 students and a teacher aid). Later on, he modifies this by using the number of students in each class instead of using an indicator. \par
 
-If Project STAR had not used randomization for assigning students to class types, Krueger would have needed a conditional independence assumption to be able to interpret the effects of class size on student achievement as causal. For conditional independence, unobserved characteristics within the error term need to be uncorrelated with the regressors of interest, after holding all other characteristics constant. In the context of this paper, there cannot be any unobservable characteristics correlated with class size. \par
+If Project STAR had not used randomization for assigning students to class types, Krueger would have needed a conditional independence assumption to be able to interpret the effects of class size on student achievement as causal. For conditional independence, unobserved characteristics within the error term need to be uncorrelated with the regressors of interest, after holding all other characteristics constant. In the context of this paper, there cannot be any omitted characteristics correlated with class size after controlling for other observed characteristics. \par
 
-In the case of a non-randomized experiment, omitted variables could violate the conditional independence assumption, such as student’s inherent ability. Students who are ‘over-achievers’ or who may be smarter than others will have inherent ability correlated with standardized test scores. Additionally, their inherent ability can be correlated with class size if they are placed in ‘gifted’ programs or are given some similar small class size advantage over those with lower inherent ability. \par
+In the case of a non-randomized experiment, omitted variables, such as student’s inherent ability, could violate the conditional independence assumption. Students who are ‘over-achievers’ or who may be smarter than others will have inherent ability correlated with standardized test scores. Additionally, their inherent ability can be correlated with class size if they are placed in ‘gifted’ programs or are given some similar small class size advantage over those with lower inherent ability. \par
 
 For this experiment, Project STAR used randomization for placing students in different class types to overcome possible omitted variable bias. If class size was truly determined randomly, then it should also be randomizing the distribution of student’s inherent abilities. This randomization should make class size uncorrelated with inherent ability and other unobservable characteristics, thus eliminating any potential omitted variable bias and allowing results to be interpreted as causal. \\
 
 \subsection*{II. Data}
-The data used in this paper and replication can be found on the Harvard Dataverse\footnote{C.M. Achilles; Helen Pate Bain; Fred Bellott; Jayne Boyd-Zaharias; Jeremy Finn; John Folger; John Johnston; Elizabeth Word, 2008, "Tennessee's Student Teacher Achievement Ratio (STAR) project"} \par
-The data consists of 11,600 observations, each corresponding to a student in Project STAR. The study focused on the same set of 80 schools  starting in 1985, and followed the students in those schools from kindergarten through high school. \par
-The study tracked class types the students were randomly assigned to, as well as several other observable characteristics such as race, gender, birthday, free lunch status, standardized test scores, and actual class size.\par
+The data used in this paper and replication can be found on the Harvard Dataverse\footnote{C.M. Achilles; Helen Pate Bain; Fred Bellott; Jayne Boyd-Zaharias; Jeremy Finn; John Folger; John Johnston; Elizabeth Word, 2008, "Tennessee's Student Teacher Achievement Ratio (STAR) project"}. Specifically, only the \textit{Student} dataset was used for this replication. \par
 
-The study also tracked teacher characteristics such as race, gender, years of experience, and highest degree achieved. \\
+The data consists of 11,600 observations, each corresponding to an individual student in one of the schools participating in Project STAR. The study focused on the same set of 80 schools  starting in 1985, and followed the students in those schools from kindergarten through high school. \par
+
+The study tracked class types the students were randomly assigned to, as well as the class type they were actually in each year. This variable becomes vital to ensuring the conditional independence assumptions holds because if students switched from initial assignments, it could jeopardize the effect of randomization. \par
+
+Other observable student characteristics in the data include race, gender, birthday, free lunch status, standardized test scores, and actual class size. Observable teacher characteristics in the data include race, gender, years of experience, and highest degree achieved.\\
+
 
 \subsection*{III. Results 1}
 
 \subsubsection*{III.i Table 1}
-The replication of Table 1 from Krueger's paper are summarized by Table 1.A and Table 1.B below. These results are used to check how well Project STAR randomized students into the three class types. Because the students were randomly assigned to class types, we would expect the means of the controls to be equal across class types. If the results suggest that randomization was not perfect, it would threaten our ability to interpret the results as causal.
+The replication of Table 1 from Krueger's paper are summarized by Table 1.A and Table 1.B on the following page. These results are used to check how well Project STAR randomized students into the three class types. Because the students were randomly assigned to class types, we would expect the means of the control variables to be equal across class types. If the results suggest that randomization was not perfect, it would threaten our ability to interpret the results as causal.
  \par
 
-Table 1.A reports the mean characteristics across controls, actual class size, and the outcome variable. Each grade panel corresponds to when the student first entered the Project STAR. For example, among students who entered STAR in Kindergarten, 47.1\% of the students in small classes qualified for free lunch. \par
+Table 1 reports the means  across controls, actual class size, and the outcome variable. Each grade panel corresponds to when the student first entered Project STAR. For example, among students who entered STAR in Kindergarten, 47.1\% of the students in small classes qualified for free lunch. \par
 
-Table 1.B reports the p-value for the joint hypothesis test that the means across class types for each variable are equal. For control variables, we would expect the means across class types to be equal. For class size and percentiles, we would expect the means across class types to be different. Because of this, if Project STAR were perfectly randomized and class size was correlated with test scores, we would expect to fail to reject ($p >$ 0.01 at the 1\% significance level) all the null hypothesis for controls, and reject ($p <$ 0.01) all the hull hypothesis for class size and percentiles. While this is true for some of the results, it does not hold for every variable across the grades. Because of this, Krueger adjusts the data and reports those results in Table 2. \par
+Table 1 also reports the p-value for the joint hypothesis test that the means across the class types for each variable are equal. For control variables, we would expect the means across class types to be equal. For class size and percentiles, we would expect the means across class types to be different. Because of this, if Project STAR were perfectly randomized and class size was correlated with test scores, we would expect to fail to reject ($p >$ 0.01 at the 1\% significance level) all the null hypothesis for controls, and reject ($p <$ 0.01) all the null hypothesis for class size and percentiles. While this is true for some of the results, it does not hold for every variable across the grades. Because of this, Krueger adjusts the data and reports the results in Table 2. \par
 
 
 
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{l|llllll} 
-	\multicolumn{7}{c}{Table 1.A: Mean Characteristics of Treatments and Controls: Unadjusted Data} \\ \hline \hline
+	\multicolumn{7}{c}{Table 1: Means and P values for Controls, Class Size, and Percentile Score} \\ \hline \hline
 	\textbf{Kindergarten} & Free Lunch  & White/Asian  & Age in 1985  & Attrition  & Class-Size  & Percentile  \\  \hline 
 	Small & 0.471 & 0.683 & 5.442 & 0.487 & 15.117 & 54.730 \\  
 	Regular & 0.477 & 0.675 & 5.426 & 0.518 & 22.383 & 49.955 \\  
-	Regular/Aide & 0.503 & 0.659 & 5.432 & 0.529 & 22.774 & 49.984 \\ \hline \hline
+	Regular/Aide & 0.503 & 0.659 & 5.432 & 0.529 & 22.774 & 49.984 \\ 
+	Joint P-Value & 0.088 & 0.251 & 0.335 & 0.024 & 0.000 & 0.000 \\	\hline \hline
 	\textbf{1st Grade}& Free Lunch  & White/Asian  & Age in 1985  & Attrition  & Class-Size  & Percentile  \\  \hline 
 	Small & 0.592 & 0.622 & 5.778 & 0.527 & 15.87 & 49.462 \\  
 	Regular & 0.624 & 0.562 & 5.858 & 0.513 & 22.71 & 42.896 \\  
-	Regular/Aide & 0.607 & 0.651 & 5.876 & 0.468 & 23.457 & 48.033 \\ \hline \hline   
+	Regular/Aide & 0.607 & 0.651 & 5.876 & 0.468 & 23.457 & 48.033 \\ 
+	Joint P-Value & 0.518 & 0.000 & 0.033 & 0.069 & 0.000 & 0.000\\\hline \hline   
 	\textbf{2nd Grade} & Free Lunch  & White/Asian  & Age in 1985  & Attrition  & Class-Size  & Percentile  \\  \hline 
 	Small & 0.655 & 0.574 & 5.881 & 0.369 & 15.500 & 46.593 \\  
 	Regular & 0.633 & 0.567 & 5.908 & 0.336 & 23.714 & 45.419 \\  
-	Regular/Aide & 0.659 & 0.465 & 5.939 & 0.349 & 23.592 & 41.813 \\  \hline \hline 
+	Regular/Aide & 0.659 & 0.465 & 5.939 & 0.349 & 23.592 & 41.813 \\ 
+	Joint P-Value & 0.605 & 0.000 & 0.405 & 0.580 & 0.000 & 0.009 \\  \hline \hline 
 	\textbf{3rd Grade} & Free Lunch  & White/Asian  & Age in 1985  & Attrition  & Class-Size  & Percentile  \\  \hline 
 	Small & 0.598 & 0.668 & 5.952 & NA & 15.971 & 47.873 \\  
 	Regular & 0.645 & 0.577 & 5.929 & NA & 24.051 & 44.522 \\  
-	Regular/Aide & 0.686 & 0.558 & 5.986 & NA & 24.425 & 41.558 \\  
+	Regular/Aide & 0.686 & 0.558 & 5.986 & NA & 24.425 & 41.558 \\
+	Joint P-Value & 0.038 & 0.003 & 0.497 & NA & 0.000 & 0.0006 \\  
 	\hline \hline 
 \end{tabular}
 \end{center}
 \end{table}
 
-\begin{table}[H]
-\begin{center}	
-	\begin{tabular}{ l | l  l  l  l } 
-	\multicolumn{5}{c}{Table 1.B: P Values of Mean Equality for} \\
-	\multicolumn{5}{c}{Treatments and Controls: Unadjusted Data} \\ \hline \hline
-	& K  & 1  & 2  & 3  \\  \hline 
-	Free Lunch & 0.088 & 0.518 & 0.605 & 0.038 \\  
-	White/Asian & 0.251 & 0.000 & 0.000 & 0.003 \\  
-	Age in 1985 & 0.335 & 0.033 & 0.405 & 0.498 \\  
-	Attrition & 0.024 & 0.069 & 0.580 & NA \\  
-	Class-Size & 0.000 & 0.000 & 0.000 & 0.000 \\  
-	Percentile & 0.000 & 0.000 & 0.010 & 0.006 \\  
-\hline \hline
-\end{tabular}
-\end{center}
-\end{table}
-
-
 \subsubsection*{III.ii Table 2}
-Table 2 reports the results for the same hypothesis test as Table 1, but also controls for school effects. This allows for heterogeneity across schools. \par
-These results are more consistent with the relationship we would expect to see, and as was described in the section above. We can reject the hypothesis that the means across class types are equal for every control except attrition in first grade. There are also significant differences in class sizes and percentile scores, except for 2nd grade percentiles.  \par
-This table provides evidence for supporting controlling school effects in the rest of the paper's analysis. \par
+Table 2 reports the results for the same hypothesis test as Table 1, but also controls for school effects. This allows for heterogeneity across schools so we can test p values within schools. \par
+These results are more consistent with the relationship we would expect to see, and as was described in the section above. We can not reject the hypothesis that the means across class types are equal for every control except attrition in first grade. There are also significant differences in class sizes and percentile scores, except for 2nd grade percentiles.  \par
+This table provides evidence in support of controlling for school effects throughout the rest of the paper. \par
 
 \begin{table}[H]
 \begin{center}	
 \centering
 	\begin{tabular}{ l | l  l  l  l } 
-	\multicolumn{5}{c}{Table 2: P Values for Within School} \\
-	\multicolumn{5}{c}{Differences Among Class Types} \\ \hline \hline
+	\multicolumn{5}{c}{Table 2: P Values after Controlling} \\
+	\multicolumn{5}{c}{for School Effects} \\ \hline \hline
 	& K  & 1  & 2  & 3  \\  \hline 
 	Free Lunch & 0.446 & 0.292 & 0.579 & 0.184 \\  
 	White/Asian & 0.647 & 0.276 & 0.710 & 0.369 \\  
-	Age in 1985 & 0.438 & 0.120 & 0.435 & 0.477 \\  
+	Age in 1985 & 0.437 & 0.120 & 0.435 & 0.477 \\  
 	Attrition & 0.012 & 0.370 & 0.848 & NA \\  
 	Class-Size & 0.000 & 0.000 & 0.000 & 0.000 \\  
-	Percentile & 0.000 & 0.000 & 0.429 & 0.004 \\  
+	Percentile & 0.000 & 0.000 & 0.428 & 0.004 \\  
 	\hline \hline
 \end{tabular}
 \end{center}
@@ -121,13 +110,13 @@ This table provides evidence for supporting controlling school effects in the re
 
 
 \subsubsection*{III.iii Table 3}	
-Table 3 shows the distribution of children across actual class sizes by random assignment group in first grade. This shows that even through the class types typically fall into the intended class ranges from Project STAR, there is a large range within each class type. Because of this, Krueger later runs a two stage least squares regression using actual class size as an instrument for class type. 
+Table 3 shows the distribution of students across their actual class size by class assignment in first grade. This shows that even through the class types typically fall into the intended class ranges from Project STAR, there is a large range of actual class sizes within each class type. Because of this, Krueger later runs the model using actual class size rather than using an indicator for class type. 
 
 \begin{table}[H]
 \centering
 \begin{tabular}{P{2cm}|P{2cm}P{2cm}P{2cm}}
-	\multicolumn{4}{c}{Table 3: Distribution of Children Across Actual Class }\\
-	\multicolumn{4}{c}{Sizes by Random Assignment Group in First Grade} \\  \hline \hline
+	\multicolumn{4}{c}{Table 3: Class Size Distribution by Class }\\
+	\multicolumn{4}{c}{Assignment in First Grade} \\  \hline \hline
 	Actual Class-Size& Small  & Regular  & Regular/Aide  \\  \hline 
 	12 & 24 & 0 & 0 \\  
 	13 & 182 & 0 & 0 \\  
@@ -151,12 +140,12 @@ Table 3 shows the distribution of children across actual class sizes by random a
 	Average &  15.697 & 22.697 & 23.436 \\  
 	\hline \hline 
 \end{tabular}
-\end{table}
+\end{table} 
 	
-
+	
 \subsubsection*{III.iv Figure 1}
-Figure 1 shows the distribution of average SAT scores in small classes and regular classes across the four grades. \par
-Each density plot shows the expected relationship that supports Krueger's hypothesis. Small classes had more students scoring in higher percentiles, and regular classes had more students scoring in lower percentiles.  
+Figure 1 on the following page shows the distribution of average SAT scores in small classes and regular classes across the four grades. \par
+Each density plot shows the expected relationship in support of Krueger's hypothesis. Small class types had more students scoring in higher percentiles, and regular class types had more students scoring in lower percentiles.  
 	
 \begin{figure}[H]
 \begin{subfigure}{0.5\textwidth}
@@ -178,11 +167,11 @@ Each density plot shows the expected relationship that supports Krueger's hypoth
 
 
 \subsection*{IV. Empirical Design}
-This paper replicates the results of Table 5 and Table 7. All of these results can be interpreted as causal as long as Project STAR made assignments that were truly random. \par
+In addition to descriptive statistics, this paper replicates the results of Krueger's Table 5 and Table 7. All of these results can be interpreted as causal as long as Project STAR made assignments that were truly random. \par
 
 Table 5 estimates the following equation: 
 \begin{align}
- Y_{ics} = \beta_{0} + \beta_{1}SMALL_{cs} + \beta_{2}REG/A_{cs} + \beta_{3}X{ics} + \alpha_{s} + \epsilon_{ics}
+ Y_{ics} = \beta_{0} + \beta_{1}SMALL_{cs} + \beta_{2}REG/A_{cs} + \beta_{3}X_{ics} + \alpha_{s} + \epsilon_{ics}
 \end{align}
 
 $Y_{ics}$ is the average percentile score of student $i$ in classroom $c$ at school $s$. $SMALL_{cs}$ is an indicator for a student assigned to a small size classroom, and $REG/A_{cs}$ is an indicator for a student assigned to a regular class type with a teacher aide.  $\beta_{1}$ will capture the mean difference in percentile scores for students in small classes compared to students in regular classes. $\beta_{2}$ will capture the mean difference in percentile scores for students in regular classes with an aide compared to students in regular classes with no aide. $X_{ics}$ is a vector of controls for observable student and teacher characteristics. Randomization should already control for these differences, so we would expect $\beta_{3}$ estimates to be relatively small. $\alpha_{s}$ is a vector of school indicators to account for school fixed effects. \par
@@ -199,17 +188,18 @@ CS_{ics} = \pi_{0} + \pi_{1}S_{ios} + \pi_{2}R_{ios} + \pi_{3}X_{ics} + \delta_{
 Y_{ics} = \beta_{0} + \beta_{1}CS_{ics} + \beta_{2}X_{ics} + \alpha_{s} + \epsilon_{ics}
 \end{align}
 
-$CS_{ics}$ is actual class size the student was in each year. $S_{ios}$ is an initial assignment to a small class. $R_{ios}$ is an initial assignment to a regular class.  \par
+$CS_{ics}$ is actual class size student \textit{i} was in each year. $S_{ios}$ is an indicator for initial assignment to a small class. $R_{ios}$ is an indicator for initial assignment to a regular class.  \par
 
-First, Krueger uses an OLS regression to estimate equation (2) and then he uses 2SLS to model equations (2) and (3), with initial class type assignments as an instrument for class size. In both cases, he control for school effects and teacher and student observable differences. \par 
+First, Krueger uses an OLS regression to estimate equation (2) and then he uses 2SLS to model equations (2) and (3), using initial class type assignments as an instrument for class size. In both cases, he controls for school fixed effects and both teacher and student observable differences. \par 
 
 As shown by Table 3, there is a large distribution of actual class sizes within the three class types. Because of this, results of Table 7 should more accurately capture the effects of class size on test scores. \par
-The OLS model directly inputs class size in the regression. The 2SLS model uses initial class type assignments as an instrument for class size to account for possible endogeneity of class size on percentile scores. For example, some parents may push for their students to get placed into smaller class sizes as Project STAR progressed. Because of this, class size may not always be purely random and may become endogenous as time goes on. Using 2SLS to instrument class size based in initial class type assignments will limit these effects and ensure we can interpret estimates as causal. Moreover, OLS and 2SLS estimates will likely be slightly different. \\ \\  	
+
+The OLS model directly inputs class size in the regression. The 2SLS model uses initial class type assignments as an instrument for class size to account for possible endogeneity of class size on percentile scores. For example, some parents may push for their students to get placed into smaller class sizes as Project STAR progressed. Because of this, class size may not always be purely random and may become endogenous as time goes on. Using 2SLS to instrument class size based in initial class type assignments will limit these effects and ensure we can interpret estimates as causal. Because of this, OLS and 2SLS estimates will likely be slightly different. \\ \\  	
 
 \subsection*{V. Results 2}
 
 \subsubsection*{V.i Table 5}
-The results of Table 5 are summarized below. A separate table was created for each grade. In each grade, small class had a positive statistically significant effect on average SAT percentile scores.\par
+The results of Table 5 are summarized on the following page. A separate table was created for each grade. In each grade, being in a small class had a positive statistically significant effect on average SAT percentile scores.\par
 
 \begin{table}[H]
 	\setlength\tabcolsep{1.75pt} 
@@ -243,7 +233,7 @@ The results of Table 5 are summarized below. A separate table was created for ea
 \end{tabular*}		
 \end{table}		
 
-In Kindergarten, OLS and reduced form estimates are equal because initial assignments are the same as actual assignments. Students in small classes had higher scores on average by 5.327 percentile points compared to students in regular classes. The effect of a teacher's aide is not significant, suggesting that there was no difference in test scores for students in regular classes and regular classes with an aide. White and Asian students had higher average test scores by 8.37 percentile points. Female students had higher average test scores by 4.371 percentile points. Students who qualified for free lunch had lower average test scores by 13.079 percentile  points. These three student control effects are significant at the 1 percent level. Teacher experience has a small positive effect on test scores by 0.263 percentile points. \par
+In Kindergarten, OLS and reduced form estimates are equal because initial assignments are the same as actual assignments. Students in small classes had higher scores on average by 5.327 percentile points compared to students in regular classes. The effect of a teacher's aide is not significant, suggesting that there was no difference in test scores for students in regular classes and regular classes with an aide. White and Asian students had higher average test scores by 8.37 percentile points compared to non-whites and non-asians. Female students had higher average test scores by 4.371 percentile points compared to male students. Students who qualified for free lunch had lower average test scores by 13.079 percentile points than those who did not qualify for free lunch. These three student control effects are significant at the 1 percent level. Teacher experience has a small positive effect on test scores by 0.263 percentile points. \par
 
 \begin{table}[H]
 	\setlength\tabcolsep{1.75pt} 
@@ -275,7 +265,7 @@ In Kindergarten, OLS and reduced form estimates are equal because initial assign
 	\hline\hline				
 \end{tabular*}
 \end{table}
-In first grade, OLS estimates are larger than the reduced form estimates. This is because OLS estimates allow for students to switch from their initial assignment. Smarter students may have switched form a regular class to a smaller class due to teacher or parental interference. This would lead OLS estimates to be larger, so reduced form estimates will eliminate this effect. The effect of class size is slightly larger in magnitude than in Kindergarten. Students in classes with an aide had higher average percentile scores by 1.483 percentile points compared to students in a regular class without an aide. The student control variables show the same relationship as in Kindergarten. Students with a white teacher had lower test scores by 4.405 percentile points. Students with a male teacher had higher average test scores by 12.771 points. \par
+In first grade, OLS estimates are larger than the reduced form estimates. This is because OLS estimates allow for students to switch from their initial assignment. Smarter students may have switched form a regular class to a smaller class due to teacher or parental interference. This would lead OLS estimates to be larger, so reduced form estimates will eliminate this effect. The effect of class size is slightly larger in magnitude than in kindergarten. Students in classes with an aide had higher average percentile scores by 1.483 percentile points compared to students in a regular class without an aide. The student control variables show the same relationship as in kindergarten. Students in classes with a white teacher had lower test scores by 4.405 percentile points compared to students in classes with a non-white teacher. Students with a male teacher had higher average test scores by 12.771 points compared to students in classes with a female teacher. \par
 
 \begin{table}[H]
 	\setlength\tabcolsep{1.75pt} 
@@ -341,7 +331,7 @@ In first grade, OLS estimates are larger than the reduced form estimates. This i
 	\hline\hline				
 \end{tabular*}
 \end{table}
-The second and third grade tables shows the same relationship for class size, regular with an aide, white and Asian, female, free lunch, and white teacher as the kindergarten results. None of the teacher characteristics are significant for second grade. The male teacher effect is negative by -6.877 percentile points.  \par
+The second grade and third grade tables show the same relationship for class size, regular class with an aide, white and Asian, female, free lunch, and white teacher as the kindergarten results. None of the teacher characteristics are significant for second grade. The male teacher effect is negative by -6.877 percentile points.  \\
 
 
 \subsubsection*{V.ii Table 7}
@@ -365,7 +355,7 @@ The results of Table 7 are summarized below. The same controls as in columns (4)
 \end{tabular*}
 \end{table}
 
-Table 7 shows the same relationship as Table 5 - increasing number of students in a classroom leads to decreasing test scores. For each class size, 2SLS effects are larger in absolute value than OLS effects. The largest effect of class size is in 1st grade, and the smallest effects are in 2nd grade. In kindergarten, increasing class size by one student decreases a student's average SAT score by 0.705 percentile points. All coefficients are statistically significant at the 1\% level. \\ \\ 
+Table 7 shows the same relationship as Table 5 - classrooms with a higher number of students leads to decreasing test scores. Now, the effect is not changing class type, but adding one additional student into the classroom. For each class size, 2SLS effects are larger in absolute value than OLS effects. The largest effect of class size is in 1st grade, and the smallest effects are in 2nd grade. In kindergarten, increasing class size by one student decreases a student's average SAT score by 0.705 percentile points. All coefficients are statistically significant at the 1\% level. \\ \\ 
 
 
 
@@ -373,11 +363,12 @@ Table 7 shows the same relationship as Table 5 - increasing number of students i
 
 This paper replicated results from Krueger's paper on the effects of class size on student achievement. Across various models and specifications, it has been shown that larger class sizes have adverse effects on standardized test scores. \par
 
-Krueger's paper only focused on effects for students in early academic stages. This paper could be extended by seeing if this relationship hold for later years. The dataset includes information up through high school, so we could study if these class size assignments had longer term effects on student achievement. \par
+From this analysis, there could be several extensions. Krueger's paper only focused on effects for students in early academic stages. This paper could be extended by seeing if this relationship hold for later years. The dataset includes information up through high school, so we could study if these class size assignments had longer term effects on student achievement. \par
 
-ACT scores are also included and can be used for student achievement in the high school years. \par
+ACT scores are also included in the data and can be used as an alternative measure of student achievement in the high school years. \par
 
-Other student outcomes could also be studied, such as dropout rates and high school GPA, both of which are included in the data. 
+Other student outcomes could also be studied, such as dropout rates and high school GPA, both of which are included in the data. \par
+
 
 
 

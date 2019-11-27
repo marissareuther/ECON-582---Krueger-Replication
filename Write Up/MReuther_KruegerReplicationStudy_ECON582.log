@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.8.23)  25 NOV 2019 11:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.8.23)  26 NOV 2019 19:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -310,80 +310,85 @@ Underfull \hbox (badness 10000) in paragraph at lines 35--36
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 42--43
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
 
  []
 
 
-Overfull \hbox (14.78088pt too wide) in paragraph at lines 58--78
+Overfull \hbox (14.78088pt too wide) in paragraph at lines 61--85
  [] 
  []
 
 [2] [3]
-Overfull \hbox (8.06458pt too wide) in paragraph at lines 131--131
+Overfull \hbox (8.06458pt too wide) in paragraph at lines 120--120
  []|\OT1/cmr/m/n/10.95 Regular/Aide| 
  []
 
-<figure1_0.png, id=22, 695.59875pt x 505.89pt>
+<figure1_0.png, id=23, 695.59875pt x 505.89pt>
 File: figure1_0.png Graphic file (type png)
 <use figure1_0.png>
-Package pdftex.def Info: figure1_0.png  used on input line 163.
+Package pdftex.def Info: figure1_0.png  used on input line 152.
 (pdftex.def)             Requested size: 226.48395pt x 164.71335pt.
-<figure1_1.png, id=23, 695.59875pt x 505.89pt>
+<figure1_1.png, id=24, 695.59875pt x 505.89pt>
 File: figure1_1.png Graphic file (type png)
 <use figure1_1.png>
-Package pdftex.def Info: figure1_1.png  used on input line 166.
+Package pdftex.def Info: figure1_1.png  used on input line 155.
 (pdftex.def)             Requested size: 226.48395pt x 164.71335pt.
 
-Overfull \hbox (2.43333pt too wide) in paragraph at lines 162--168
+Overfull \hbox (2.43333pt too wide) in paragraph at lines 151--157
 []$[]$ $[]$ 
  []
 
-<figure1_2.png, id=24, 695.59875pt x 505.89pt>
+<figure1_2.png, id=25, 695.59875pt x 505.89pt>
 File: figure1_2.png Graphic file (type png)
 <use figure1_2.png>
-Package pdftex.def Info: figure1_2.png  used on input line 171.
+Package pdftex.def Info: figure1_2.png  used on input line 160.
 (pdftex.def)             Requested size: 226.48395pt x 164.71335pt.
-<figure1_3.png, id=25, 695.59875pt x 505.89pt>
+<figure1_3.png, id=26, 695.59875pt x 505.89pt>
 File: figure1_3.png Graphic file (type png)
 <use figure1_3.png>
-Package pdftex.def Info: figure1_3.png  used on input line 174.
+Package pdftex.def Info: figure1_3.png  used on input line 163.
 (pdftex.def)             Requested size: 226.48395pt x 164.71335pt.
 
-Overfull \hbox (2.43333pt too wide) in paragraph at lines 170--176
+Overfull \hbox (2.43333pt too wide) in paragraph at lines 159--165
 []$[]$ $[]$ 
  []
 
 [4] [5 <./figure1_0.png (PNG copy)> <./figure1_1.png (PNG copy)> <./figure1_2.p
 ng (PNG copy)> <./figure1_3.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 207--208
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--208
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
 
  []
 
-[6] [7] [8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 368--369
+[6] [7] [8]
+Underfull \hbox (badness 10000) in paragraph at lines 334--335
+
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 358--359
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 368--369
+Underfull \hbox (badness 10000) in paragraph at lines 358--359
 
  []
 
 [10] (./MReuther_KruegerReplicationStudy_ECON582.aux) ) 
 Here is how much of TeX's memory you used:
- 3539 strings out of 494553
- 55366 string characters out of 6175971
+ 3541 strings out of 494553
+ 55390 string characters out of 6175971
  154453 words of memory out of 5000000
- 7164 multiletter control sequences out of 15000+600000
- 10813 words of font info for 39 fonts, out of 8000000 for 9000
+ 7165 multiletter control sequences out of 15000+600000
+ 11159 words of font info for 40 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 42i,11n,40p,917b,359s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,11n,40p,1037b,359s stack positions out of 5000i,500n,10000p,200000b,80000s
 <c:/Users/maris/AppData/
 Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/Users/
 maris/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.
@@ -398,12 +403,13 @@ fb><c:/Users/maris/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmr8.pfb><c:/Users/maris/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmr9.pfb><c:/Users/maris/AppData/Roaming/TinyTeX/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmsy6.pfb><c:/Users/maris/AppData/Roaming/TinyTeX
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on MReuther_KruegerReplicationStudy_ECON582.pdf (10 pages, 31379
-3 bytes).
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/Users/maris/AppData/R
+oaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
+Output written on MReuther_KruegerReplicationStudy_ECON582.pdf (10 pages, 32421
+4 bytes).
 PDF statistics:
- 89 PDF objects out of 1000 (max. 8388607)
- 60 compressed objects within 1 object stream
+ 93 PDF objects out of 1000 (max. 8388607)
+ 63 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
